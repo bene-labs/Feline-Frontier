@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbhljc0yeen15"]
+
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_dk55j"]
+
+[node name="Player" type="RigidBody2D"]
+script = ExtResource("1_dk55j")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+scale = Vector2(0.6, 0.6)
+color = Color(0.817521, 0.817521, 0.817521, 1)
+polygon = PackedVector2Array(-63, -67, -1, -83, 52, -80, 97, -80, 70, -133, 79, -167, 149, -189, 200, -153, 198, -82, 191, 12, 184, 96, 148, 94, 140, 15, 10, 15, 10, 102, -35, 100, -31, 18, -74, 16, -119, 80, -153, 39, -108, -12)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+scale = Vector2(0.6, 0.6)
+polygon = PackedVector2Array(-63, -67, -1, -83, 52, -80, 97, -80, 70, -133, 79, -167, 149, -189, 200, -153, 198, -82, 191, 12, 184, 96, 148, 94, 140, 15, 10, 15, 10, 102, -35, 100, -31, 18, -74, 16, -119, 80, -153, 39, -108, -12)

@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://pw8w3f2frlig"]
+
+[ext_resource type="PackedScene" uid="uid://dbhljc0yeen15" path="res://scenes/player.tscn" id="1_71mex"]
+[ext_resource type="Texture2D" uid="uid://os38u78u7gvx" path="res://Background.png" id="1_jlcuv"]
+[ext_resource type="PackedScene" uid="uid://bu0finf62w0ke" path="res://scenes/LimitedCamera.tscn" id="2_jsvua"]
+[ext_resource type="Script" path="res://scenes/walls.gd" id="2_lml5f"]
+[ext_resource type="Texture2D" uid="uid://cbfv7t64vi410" path="res://images/Spaceship_Colored.png" id="3_udrhp"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7sj44"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1drfh"]
+bounce = 2.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vb2d3"]
+size = Vector2(949, 124)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_r8t2j"]
+bounce = 2.0
+
+[node name="Game" type="Node2D"]
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+scroll_offset = Vector2(-127, -424)
+repeat_size = Vector2(2277.34, 1610)
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+scale = Vector2(0.805, 0.805)
+texture = ExtResource("1_jlcuv")
+centered = false
+
+[node name="Player" parent="." instance=ExtResource("1_71mex")]
+position = Vector2(247, 300)
+physics_material_override = SubResource("PhysicsMaterial_7sj44")
+gravity_scale = 0.0
+
+[node name="LimitedCamera" parent="Player" instance=ExtResource("2_jsvua")]
+zoom = Vector2(1, 1)
+
+[node name="ReferenceRect" type="ReferenceRect" parent="Player/LimitedCamera"]
+offset_left = -382.0
+offset_top = -721.0
+offset_right = 665.0
+offset_bottom = 878.0
+
+[node name="Walls" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("2_lml5f")
+player = NodePath("../Player")
+
+[node name="Wall" type="StaticBody2D" parent="Walls"]
+position = Vector2(3, -407)
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_1drfh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall"]
+position = Vector2(357.5, -78)
+shape = SubResource("RectangleShape2D_vb2d3")
+
+[node name="Wall2" type="StaticBody2D" parent="Walls"]
+position = Vector2(3, 1327)
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_r8t2j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall2"]
+position = Vector2(357.5, -78)
+shape = SubResource("RectangleShape2D_vb2d3")
+
+[node name="SpaceshipColored" type="Sprite2D" parent="."]
+position = Vector2(-85.9999, 330)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("3_udrhp")
