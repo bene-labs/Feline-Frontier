@@ -1,21 +1,29 @@
-[gd_scene load_steps=10 format=3 uid="uid://pw8w3f2frlig"]
+[gd_scene load_steps=14 format=3 uid="uid://pw8w3f2frlig"]
 
 [ext_resource type="PackedScene" uid="uid://dbhljc0yeen15" path="res://scenes/player.tscn" id="1_71mex"]
 [ext_resource type="Texture2D" uid="uid://os38u78u7gvx" path="res://Background.png" id="1_jlcuv"]
 [ext_resource type="PackedScene" uid="uid://bu0finf62w0ke" path="res://scenes/LimitedCamera.tscn" id="2_jsvua"]
 [ext_resource type="Script" path="res://scenes/walls.gd" id="2_lml5f"]
 [ext_resource type="Texture2D" uid="uid://cbfv7t64vi410" path="res://images/Spaceship_Colored.png" id="3_udrhp"]
+[ext_resource type="Script" path="res://scripts/game_ui.gd" id="4_ijfx6"]
+[ext_resource type="PackedScene" uid="uid://dm11v5ulponn6" path="res://scenes/enemy_spawner.tscn" id="6_bju4m"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7sj44"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1drfh"]
-bounce = 1.0
+bounce = 0.8
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_31boq"]
+size = Vector2(112, 1591)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vb2d3"]
 size = Vector2(949, 124)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_r8t2j"]
 bounce = 2.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kfofu"]
+size = Vector2(612, 380)
 
 [node name="Game" type="Node2D"]
 
@@ -32,35 +40,56 @@ centered = false
 position = Vector2(247, 300)
 physics_material_override = SubResource("PhysicsMaterial_7sj44")
 gravity_scale = 0.0
+rotation_speed = 50.0
 
 [node name="LimitedCamera" parent="Player" instance=ExtResource("2_jsvua")]
-zoom = Vector2(1, 1)
 
 [node name="ReferenceRect" type="ReferenceRect" parent="Player/LimitedCamera"]
-offset_left = -382.0
+offset_left = -460.0
 offset_top = -721.0
-offset_right = 665.0
+offset_right = 587.0
 offset_bottom = 878.0
 
-[node name="Walls" type="Node2D" parent="." node_paths=PackedStringArray("player")]
-script = ExtResource("2_lml5f")
-player = NodePath("../Player")
+[node name="GameUI" type="CanvasLayer" parent="Player/LimitedCamera"]
+script = ExtResource("4_ijfx6")
 
-[node name="Wall" type="StaticBody2D" parent="Walls"]
+[node name="DistanceLabel" type="Label" parent="Player/LimitedCamera/GameUI"]
+unique_name_in_owner = true
+offset_left = 794.0
+offset_top = 20.0
+offset_right = 1015.0
+offset_bottom = 54.0
+theme_override_font_sizes/font_size = 20
+text = "Distance: 0000"
+horizontal_alignment = 2
+
+[node name="LeftWallWall" type="StaticBody2D" parent="."]
+position = Vector2(-125, -3)
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_1drfh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWallWall"]
+position = Vector2(125, 385.5)
+shape = SubResource("RectangleShape2D_31boq")
+
+[node name="Walls" type="Node2D" parent="."]
+script = ExtResource("2_lml5f")
+
+[node name="TopWall" type="StaticBody2D" parent="Walls"]
 position = Vector2(3, -407)
 collision_mask = 0
 physics_material_override = SubResource("PhysicsMaterial_1drfh")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/TopWall"]
 position = Vector2(357.5, -78)
 shape = SubResource("RectangleShape2D_vb2d3")
 
-[node name="Wall2" type="StaticBody2D" parent="Walls"]
+[node name="BottomWall" type="StaticBody2D" parent="Walls"]
 position = Vector2(3, 1327)
 collision_mask = 0
 physics_material_override = SubResource("PhysicsMaterial_r8t2j")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/BottomWall"]
 position = Vector2(357.5, -78)
 shape = SubResource("RectangleShape2D_vb2d3")
 
@@ -68,3 +97,25 @@ shape = SubResource("RectangleShape2D_vb2d3")
 position = Vector2(-85.9999, 330)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("3_udrhp")
+
+[node name="EnemySpawner" parent="." instance=ExtResource("6_bju4m")]
+asteroid_spawn_chance = 0.5
+
+[node name="TopSpawnArea" type="Area2D" parent="EnemySpawner"]
+position = Vector2(-132, -770)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawner/TopSpawnArea"]
+position = Vector2(487, -131)
+shape = SubResource("RectangleShape2D_kfofu")
+
+[node name="BottomSpawnArea" type="Area2D" parent="EnemySpawner"]
+position = Vector2(-132, 1843)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawner/BottomSpawnArea"]
+position = Vector2(492, -131)
+shape = SubResource("RectangleShape2D_kfofu")
+
+[node name="SpawnTimer" type="Timer" parent="EnemySpawner"]
+unique_name_in_owner = true
+
+[connection signal="timeout" from="EnemySpawner/SpawnTimer" to="EnemySpawner" method="_on_spawn_timer_timeout"]

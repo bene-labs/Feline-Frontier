@@ -6,10 +6,11 @@ extends RigidBody2D
 
 var boost_velcotiy := Vector2.ZERO
 var rotation_velocity := 0.0
-
+static var traveled_distance := 0.0
+var start_postion : Vector2
 
 func _ready() -> void:
-	pass
+	start_postion = global_position
 
 
 func _process(delta: float) -> void:
@@ -19,6 +20,7 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	rotation_degrees += rotation_velocity * delta
 	apply_central_force(boost_velcotiy)
+	traveled_distance = clamp(global_position.x - start_postion.x, 0, INF)
 
 
 func _input(event: InputEvent) -> void:
