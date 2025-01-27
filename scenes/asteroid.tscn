@@ -15,7 +15,7 @@ collision_mask = 2
 physics_material_override = SubResource("PhysicsMaterial_hl7vp")
 gravity_scale = 0.0
 script = ExtResource("1_pebcr")
-energy_drain = 50
+energy_drain = 40
 
 [node name="Polygon2D" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)

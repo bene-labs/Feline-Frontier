@@ -2,12 +2,14 @@ extends CanvasLayer
 
 var best_distance := 0.0
 
+
 func _ready():
 	if FileAccess.file_exists("Highscore.sav"):
 		var file = FileAccess.open("Highscore.sav", FileAccess.READ)
 		best_distance = file.get_float()
 		file.close()
 	%BestDistanceLabel.text = "Highscore: %.2fm" % (best_distance / 10)
+
 
 func _process(delta: float) -> void:
 	%DistanceLabel.text = "Distance: %.2fm" % (Player.traveled_distance / 10)

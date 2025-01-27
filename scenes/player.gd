@@ -30,6 +30,11 @@ func lose_power(amount: float):
 	power_changed.emit(remaining_power / max_power)
 
 
+func gain_power(amount: float):
+	remaining_power = clamp(remaining_power + amount, 0, max_power)
+	power_changed.emit(remaining_power / max_power)
+
+
 func _process(delta: float) -> void:
 	if boost_velcotiy != Vector2.ZERO:
 		lose_power(boost_cost_per_second * delta)
@@ -81,3 +86,6 @@ func _on_obstacle_detector_body_entered(body):
 			return
 		lose_power(body.get_energy_drain())
 		hit.emit()
+	elif body.has_method("consume"):
+		gain_power(body.consume())
+	

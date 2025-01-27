@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3lh5icsuxcu7"]
+
+[ext_resource type="Script" path="res://scripts/cat_food.gd" id="1_q3c1e"]
+[ext_resource type="Texture2D" uid="uid://35n6lgsy7e4r" path="res://images/CatFood.png" id="2_gym4f"]
+
+[node name="CatFood" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 2
+mass = 0.5
+gravity_scale = 0.0
+script = ExtResource("1_q3c1e")
+energy_gain = 300
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_gym4f")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+scale = Vector2(0.25, 0.25)
+polygon = PackedVector2Array(-144, -100, -88, -120, -24, -124, 68, -116, 144, -100, 152, -68, 136, 80, 64, 112, -84, 112, -148, 72)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-17, -14.5)
+scale = Vector2(10, 10)
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

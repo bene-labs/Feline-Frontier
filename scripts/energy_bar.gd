@@ -9,7 +9,7 @@ func set_progress(value : float):
 	if value == $ProgressBar.value:
 		push_warning("Called set progress on Energy bar without value change")
 		return
-	if $ProgressBar.value - value < 0.001:
+	if abs($ProgressBar.value - value) < 0.001:
 		return
 	if value > $ProgressBar.value:
 		$Outline.color = Color.GREEN
