@@ -2,7 +2,7 @@ class_name CatFood
 extends RigidBody2D
 
 static var prefab =  preload("res://scenes/cat_food.tscn")
-const MAX_LIFETIME = 10.0
+const MAX_LIFETIME = 20.0
 
 @export var energy_gain := 250
 
@@ -40,8 +40,9 @@ func consume() -> float:
 
 
 func _on_visible_on_screen_notifier_2d_screen_entered():
+	life_time = 0
 	is_visible = true
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
-	queue_free()
+	is_visible = false
