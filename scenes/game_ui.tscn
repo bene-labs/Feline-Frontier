@@ -1,0 +1,72 @@
+[gd_scene load_steps=5 format=3 uid="uid://qpdxv4l38x5a"]
+
+[ext_resource type="Script" path="res://scripts/game_ui.gd" id="1_7uqta"]
+[ext_resource type="Script" path="res://scripts/energy_bar.gd" id="2_wdaxr"]
+
+[sub_resource type="Gradient" id="Gradient_772o6"]
+offsets = PackedFloat32Array(0, 0.541738, 1)
+colors = PackedColorArray(0, 0.984314, 0, 1, 0.739162, 0.75426, 0.276269, 1, 0.585, 0.126265, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fgd6r"]
+gradient = SubResource("Gradient_772o6")
+width = 40
+height = 180
+fill_to = Vector2(0, 1)
+
+[node name="GameUI" type="CanvasLayer"]
+script = ExtResource("1_7uqta")
+
+[node name="DistanceLabel" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 794.0
+offset_top = 20.0
+offset_right = 1015.0
+offset_bottom = 54.0
+theme_override_font_sizes/font_size = 20
+text = "Distance: 0000"
+horizontal_alignment = 2
+
+[node name="EnergyBar" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 57.0
+offset_bottom = 578.0
+size_flags_horizontal = 0
+script = ExtResource("2_wdaxr")
+
+[node name="Outline" type="Polygon2D" parent="EnergyBar"]
+position = Vector2(-15.88, -4.8)
+scale = Vector2(1.06, 1.02)
+polygon = PackedVector2Array(39, 140, 38, 160, 24, 160, 22, 346, 68, 346, 69, 159, 54, 159, 53, 141)
+
+[node name="Background" type="Polygon2D" parent="EnergyBar"]
+position = Vector2(-12.88, 0.199997)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(39, 140, 38, 160, 24, 160, 22, 346, 68, 346, 69, 159, 54, 159, 53, 141)
+
+[node name="ProgressBar" type="TextureProgressBar" parent="EnergyBar"]
+offset_left = 13.12
+offset_top = 163.2
+offset_right = 77.12
+offset_bottom = 525.2
+max_value = 1.0
+step = 0.01
+value = 1.0
+fill_mode = 3
+texture_progress = SubResource("GradientTexture2D_fgd6r")
+
+[node name="Title" type="Label" parent="EnergyBar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 109.0
+offset_right = 57.0
+offset_bottom = 132.0
+text = "Power"
+
+[node name="ValueLabel" type="Label" parent="EnergyBar"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 350.0
+offset_right = 60.0
+offset_bottom = 373.0
+text = "100%"

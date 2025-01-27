@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bu0finf62w0ke" path="res://scenes/LimitedCamera.tscn" id="2_jsvua"]
 [ext_resource type="Script" path="res://scenes/walls.gd" id="2_lml5f"]
 [ext_resource type="Texture2D" uid="uid://cbfv7t64vi410" path="res://images/Spaceship_Colored.png" id="3_udrhp"]
-[ext_resource type="Script" path="res://scripts/game_ui.gd" id="4_ijfx6"]
+[ext_resource type="PackedScene" uid="uid://qpdxv4l38x5a" path="res://scenes/game_ui.tscn" id="4_pdfhx"]
 [ext_resource type="PackedScene" uid="uid://dm11v5ulponn6" path="res://scenes/enemy_spawner.tscn" id="6_bju4m"]
 [ext_resource type="Script" path="res://scripts/obstacle_spawner.gd" id="8_up5wp"]
 
@@ -59,18 +59,7 @@ offset_right = 4173.0
 offset_bottom = 878.0
 border_width = 3.0
 
-[node name="GameUI" type="CanvasLayer" parent="LimitedCamera"]
-script = ExtResource("4_ijfx6")
-
-[node name="DistanceLabel" type="Label" parent="LimitedCamera/GameUI"]
-unique_name_in_owner = true
-offset_left = 794.0
-offset_top = 20.0
-offset_right = 1015.0
-offset_bottom = 54.0
-theme_override_font_sizes/font_size = 20
-text = "Distance: 0000"
-horizontal_alignment = 2
+[node name="GameUI" parent="LimitedCamera" instance=ExtResource("4_pdfhx")]
 
 [node name="Player" parent="." instance=ExtResource("1_71mex")]
 position = Vector2(155, 300)
@@ -163,5 +152,7 @@ offset_bottom = 1181.0
 
 [node name="Obstacles" type="Node2D" parent="."]
 
+[connection signal="hit" from="Player" to="LimitedCamera" method="_on_player_hit"]
+[connection signal="power_changed" from="Player" to="LimitedCamera/GameUI" method="_on_player_power_changed"]
 [connection signal="timeout" from="AsteroidLauncher/SpawnTimer" to="AsteroidLauncher" method="_on_spawn_timer_timeout"]
 [connection signal="body_entered" from="ObstacleSpawner/NewAreaTrigger" to="ObstacleSpawner" method="_on_new_area_trigger_body_entered"]

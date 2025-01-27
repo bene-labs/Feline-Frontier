@@ -4,6 +4,8 @@ var shake_strength = 0
 var limit_rect = null
 @export var enable_screen_shake = true
 
+@onready var start_offset = offset
+
 func _ready():
 	for child in get_children():
 		if child is ReferenceRect:
@@ -29,14 +31,19 @@ func apply_shake(strength, speed, duration):
 	shake_strength = strength
 
 func _on_ShakeTimer_timeout():
-	set_offset(Vector2(randf_range(-1.0, 1.0) * shake_strength, (randf_range(-1.0, 1.0) * shake_strength)))
+	set_offset(start_offset + Vector2(randf_range(-1.0, 1.0) * shake_strength, (randf_range(-1.0, 1.0) * shake_strength)))
 
 
 func _on_ShakeDurationTimer_timeout():
 	$ShakeTimer.stop()
+	offset = start_offset
 
 func pause():
 	$ShakeTimer.paused = true
 	
 func unpause():
 	$ShakeTimer.paused = false
+
+
+func _on_player_hit():
+	apply_shake(4.2, 0.1, 0.5)

@@ -22,7 +22,7 @@ func spawn_asteroid():
 	position_in_area.x = (randi() % int(size.x)) - (size.x/2) + centerpos.x
 	position_in_area.y = (randi() % int(size.y)) - (size.y/2) + centerpos.y
 	await get_tree().process_frame
-	$"../Obstacles".add_child(Asteroid.spawn(diffculty, position_in_area))
+	$"../Obstacles".add_child(Asteroid.spawn(diffculty, position_in_area, false))
 
 
 func _on_new_area_trigger_body_entered(body):
