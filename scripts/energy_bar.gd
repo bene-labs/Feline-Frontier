@@ -16,6 +16,7 @@ func set_progress(value : float):
 	else:
 		$Outline.color = Color.RED
 	$OutlineFlashTimer.start()
+	value = clamp(value, 0, 1)
 	$ProgressBar.value = value
 	$ValueLabel.text = "%d%%" % int(value * 100)
 	

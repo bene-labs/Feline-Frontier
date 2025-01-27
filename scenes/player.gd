@@ -42,14 +42,20 @@ func _physics_process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if remaining_power >= 0 and event.is_action_pressed("boost"):
-		$AnimatedSprite.play("boost")
-		boost_velcotiy = Vector2(boost_speed, 0).rotated(rotation)
+	if event.is_action_pressed("boost"):
+		if remaining_power <= 0:
+			power_changed.emit(-1)
+		else:
+			$AnimatedSprite.play("boost")
+			boost_velcotiy = Vector2(boost_speed, 0).rotated(rotation)
 	elif event.is_action_released("boost"):
 		$AnimatedSprite.play("default")
 		boost_velcotiy = Vector2(0, 0)
 	elif event.is_action_pressed("break"):
-		boost_velcotiy = Vector2(-boost_speed, 0).rotated(rotation)
+		if remaining_power <= 0:
+			power_changed.emit(-1)
+		else:
+			boost_velcotiy = Vector2(-boost_speed, 0).rotated(rotation)
 	elif event.is_action_released("break"):
 		boost_velcotiy = Vector2(0, 0)
 	

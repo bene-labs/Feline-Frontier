@@ -30,7 +30,7 @@ size = Vector2(612, 380)
 size = Vector2(101, 1594)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ijjp"]
-size = Vector2(1243.5, 1430)
+size = Vector2(1243.5, 1521)
 
 [node name="Game" type="Node2D"]
 
@@ -47,6 +47,19 @@ centered = false
 position = Vector2(1, 300)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("3_udrhp")
+
+[node name="Instructions" type="Label" parent="."]
+offset_left = 69.0
+offset_top = 397.0
+offset_right = 448.0
+offset_bottom = 544.0
+text = "Q/E: Rotate
+Space/Left mouse: Accelerate
+B/Right mouse: Break
+
+Dodge asteroid and collect cat food to
+conserve power and make it further!
+"
 
 [node name="LimitedCamera" parent="." instance=ExtResource("2_jsvua")]
 position = Vector2(155, 300)
@@ -140,7 +153,7 @@ collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ObstacleSpawner/SpawnArea"]
-position = Vector2(857.25, 365)
+position = Vector2(857.25, 362.5)
 shape = SubResource("RectangleShape2D_4ijjp")
 
 [node name="DimensionRef" type="ReferenceRect" parent="ObstacleSpawner"]
