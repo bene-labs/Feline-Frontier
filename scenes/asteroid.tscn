@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://bshjpe42vqxt4"]
+[gd_scene load_steps=5 format=3 uid="uid://bshjpe42vqxt4"]
 
 [ext_resource type="Script" path="res://scripts/asteroid.gd" id="1_pebcr"]
+[ext_resource type="Texture2D" uid="uid://xfq2tdk7d77v" path="res://images/Asteroid.png" id="2_u623o"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hl7vp"]
 bounce = 0.6
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0o2sn"]
+radius = 50.0
 
 [node name="Asteroid" type="RigidBody2D"]
 collision_layer = 2
@@ -12,16 +16,15 @@ physics_material_override = SubResource("PhysicsMaterial_hl7vp")
 gravity_scale = 0.0
 script = ExtResource("1_pebcr")
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color(0.585062, 0.585062, 0.585062, 1)
-polygon = PackedVector2Array(-30, -40, -52, -27, -64, -7, -64, 28, -33, 60, -7, 60, 28, 51, 50, 22, 55, -19, 19, -43)
+[node name="Polygon2D" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_u623o")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-30, -40, -52, -27, -64, -7, -64, 28, -33, 60, -7, 60, 28, 51, 50, 22, 55, -19, 19, -43)
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0o2sn")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(-16.5, 11)
-scale = Vector2(19.15, 13.2)
+scale = Vector2(8, 8)
 
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

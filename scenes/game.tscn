@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://pw8w3f2frlig"]
+[gd_scene load_steps=15 format=3 uid="uid://pw8w3f2frlig"]
 
 [ext_resource type="PackedScene" uid="uid://dbhljc0yeen15" path="res://scenes/player.tscn" id="1_71mex"]
 [ext_resource type="Texture2D" uid="uid://os38u78u7gvx" path="res://Background.png" id="1_jlcuv"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cbfv7t64vi410" path="res://images/Spaceship_Colored.png" id="3_udrhp"]
 [ext_resource type="Script" path="res://scripts/game_ui.gd" id="4_ijfx6"]
 [ext_resource type="PackedScene" uid="uid://dm11v5ulponn6" path="res://scenes/enemy_spawner.tscn" id="6_bju4m"]
+[ext_resource type="PackedScene" uid="uid://bshjpe42vqxt4" path="res://scenes/asteroid.tscn" id="8_t68d1"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7sj44"]
 
@@ -117,5 +118,8 @@ shape = SubResource("RectangleShape2D_kfofu")
 
 [node name="SpawnTimer" type="Timer" parent="EnemySpawner"]
 unique_name_in_owner = true
+
+[node name="Asteroid" parent="." instance=ExtResource("8_t68d1")]
+position = Vector2(574, 296)
 
 [connection signal="timeout" from="EnemySpawner/SpawnTimer" to="EnemySpawner" method="_on_spawn_timer_timeout"]
