@@ -8,6 +8,7 @@ signal hit
 @export var boost_speed = 100.0
 @export var max_power := 1000.0
 @export var boost_cost_per_second := 50
+@export var brake_cost_per_second := 20
 
 @onready var remaining_power := max_power
 var boost_velcotiy := Vector2.ZERO

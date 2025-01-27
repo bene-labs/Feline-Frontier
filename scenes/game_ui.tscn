@@ -50,7 +50,7 @@ offset_top = 163.2
 offset_right = 77.12
 offset_bottom = 525.2
 max_value = 1.0
-step = 0.01
+step = 0.001
 value = 1.0
 fill_mode = 3
 texture_progress = SubResource("GradientTexture2D_fgd6r")
@@ -70,3 +70,8 @@ offset_top = 350.0
 offset_right = 60.0
 offset_bottom = 373.0
 text = "100%"
+
+[node name="OutlineFlashTimer" type="Timer" parent="EnergyBar"]
+wait_time = 0.15
+
+[connection signal="timeout" from="EnergyBar/OutlineFlashTimer" to="EnergyBar" method="_on_outline_flash_timer_timeout"]
