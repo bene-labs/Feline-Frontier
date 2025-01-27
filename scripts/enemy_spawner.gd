@@ -31,7 +31,7 @@ func spawn_asteroid():
 	var position_in_area : Vector2
 	position_in_area.x = (randi() % int(size.x)) - (size.x/2) + centerpos.x
 	position_in_area.y = (randi() % int(size.y)) - (size.y/2) + centerpos.y
-	add_child(Asteroid.spawn(diffculty, position_in_area))
+	$"../Obstacles".add_child(Asteroid.spawn(diffculty, position_in_area))
 
 
 func _on_spawn_timer_timeout() -> void:

@@ -10,8 +10,8 @@ var diffculty = 1.0
 
 func _process(delta: float) -> void:
 	diffculty = 1.0 + Player.traveled_distance / 100000
-	min_obstacles = int(INIT_MIN_OBSTACLE + diffculty / 2)
-	max_obstacles = int(INIT_MAX_OBSTACLE + diffculty)
+	min_obstacles = int(INIT_MIN_OBSTACLE + diffculty)
+	max_obstacles = int(INIT_MAX_OBSTACLE + diffculty * 2)
  
 
 func spawn_asteroid():
@@ -22,10 +22,11 @@ func spawn_asteroid():
 	position_in_area.x = (randi() % int(size.x)) - (size.x/2) + centerpos.x
 	position_in_area.y = (randi() % int(size.y)) - (size.y/2) + centerpos.y
 	await get_tree().process_frame
-	add_child(Asteroid.spawn(diffculty, position_in_area))
+	$"../Obstacles".add_child(Asteroid.spawn(diffculty, position_in_area))
 
 
 func _on_new_area_trigger_body_entered(body):
+	print(body.name)
 	for i in range(randi_range(min_obstacles, max_obstacles)):
 		spawn_asteroid()
 	global_position = Vector2(global_position.x + %DimensionRef.size.x, global_position.y)

@@ -30,7 +30,7 @@ size = Vector2(612, 380)
 size = Vector2(101, 1594)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ijjp"]
-size = Vector2(987, 1430)
+size = Vector2(1243.5, 1430)
 
 [node name="Game" type="Node2D"]
 
@@ -43,25 +43,26 @@ scale = Vector2(0.805, 0.805)
 texture = ExtResource("1_jlcuv")
 centered = false
 
-[node name="Player" parent="." instance=ExtResource("1_71mex")]
-position = Vector2(247, 300)
-physics_material_override = SubResource("PhysicsMaterial_7sj44")
-gravity_scale = 0.0
-rotation_speed = 50.0
+[node name="SpaceshipColored" type="Sprite2D" parent="."]
+position = Vector2(1, 300)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("3_udrhp")
 
-[node name="LimitedCamera" parent="Player" instance=ExtResource("2_jsvua")]
+[node name="LimitedCamera" parent="." instance=ExtResource("2_jsvua")]
+position = Vector2(155, 300)
+offset = Vector2(350, 0)
 
-[node name="ReferenceRect" type="ReferenceRect" parent="Player/LimitedCamera"]
-offset_left = -246.0
+[node name="ReferenceRect" type="ReferenceRect" parent="LimitedCamera"]
+offset_left = -514.0
 offset_top = -721.0
 offset_right = 4173.0
 offset_bottom = 878.0
 border_width = 3.0
 
-[node name="GameUI" type="CanvasLayer" parent="Player/LimitedCamera"]
+[node name="GameUI" type="CanvasLayer" parent="LimitedCamera"]
 script = ExtResource("4_ijfx6")
 
-[node name="DistanceLabel" type="Label" parent="Player/LimitedCamera/GameUI"]
+[node name="DistanceLabel" type="Label" parent="LimitedCamera/GameUI"]
 unique_name_in_owner = true
 offset_left = 794.0
 offset_top = 20.0
@@ -70,6 +71,17 @@ offset_bottom = 54.0
 theme_override_font_sizes/font_size = 20
 text = "Distance: 0000"
 horizontal_alignment = 2
+
+[node name="Player" parent="." instance=ExtResource("1_71mex")]
+position = Vector2(155, 300)
+physics_material_override = SubResource("PhysicsMaterial_7sj44")
+gravity_scale = 0.0
+rotation_speed = 50.0
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+remote_path = NodePath("../../LimitedCamera")
+update_rotation = false
+update_scale = false
 
 [node name="LeftWallWall" type="StaticBody2D" parent="."]
 position = Vector2(-186, 2)
@@ -100,11 +112,6 @@ physics_material_override = SubResource("PhysicsMaterial_r8t2j")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/BottomWall"]
 position = Vector2(357.5, -78)
 shape = SubResource("RectangleShape2D_vb2d3")
-
-[node name="SpaceshipColored" type="Sprite2D" parent="."]
-position = Vector2(-85.9999, 330)
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("3_udrhp")
 
 [node name="AsteroidLauncher" parent="." instance=ExtResource("6_bju4m")]
 asteroid_spawn_chance = 0.5
@@ -139,20 +146,22 @@ shape = SubResource("RectangleShape2D_ucv68")
 
 [node name="SpawnArea" type="Area2D" parent="ObstacleSpawner"]
 unique_name_in_owner = true
-position = Vector2(876, 11)
+position = Vector2(1049, 19)
 collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ObstacleSpawner/SpawnArea"]
-position = Vector2(514.5, 369)
+position = Vector2(857.25, 365)
 shape = SubResource("RectangleShape2D_4ijjp")
 
 [node name="DimensionRef" type="ReferenceRect" parent="ObstacleSpawner"]
 unique_name_in_owner = true
 offset_left = 773.0
 offset_top = -413.0
-offset_right = 1909.0
+offset_right = 2367.0
 offset_bottom = 1181.0
+
+[node name="Obstacles" type="Node2D" parent="."]
 
 [connection signal="timeout" from="AsteroidLauncher/SpawnTimer" to="AsteroidLauncher" method="_on_spawn_timer_timeout"]
 [connection signal="body_entered" from="ObstacleSpawner/NewAreaTrigger" to="ObstacleSpawner" method="_on_new_area_trigger_body_entered"]

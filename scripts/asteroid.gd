@@ -17,7 +17,7 @@ var size := 1.0
 
 static func spawn(difficulty, position, launch = true):
 	var new_asteroid = prefab.instantiate()
-	new_asteroid.size = randf_range(MIN_SIZE, MAX_SIZE) + difficulty / 10
+	new_asteroid.size = randf_range(MIN_SIZE, MAX_SIZE) + difficulty / 4
 	if launch:
 		new_asteroid.speed = randf_range(min_speed * difficulty * 0.67, max_speed * difficulty * 0.67)
 		if position.y > 0: 
