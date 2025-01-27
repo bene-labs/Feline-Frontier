@@ -4,12 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://35n6lgsy7e4r" path="res://images/CatFood.png" id="2_gym4f"]
 
 [node name="CatFood" type="RigidBody2D"]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 8
+collision_mask = 8
 mass = 0.5
 gravity_scale = 0.0
 script = ExtResource("1_q3c1e")
-energy_gain = 300
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)

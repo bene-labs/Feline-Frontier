@@ -39,5 +39,6 @@ func _on_new_area_trigger_body_entered(body):
 	print(body.name)
 	for i in range(randi_range(min_obstacles, max_obstacles)):
 		spawn_asteroid()
-	spawn_cat_food()
+	for i in range(randi_range(1, 2)):
+		spawn_cat_food()
 	global_position = Vector2(global_position.x + %DimensionRef.size.x, global_position.y)

@@ -16,7 +16,7 @@ var boost_velcotiy := Vector2.ZERO
 var rotation_velocity := 0.0
 static var traveled_distance := 0.0
 var start_postion : Vector2
-
+var is_invunerable := false
 
 func _ready() -> void:
 	start_postion = global_position
@@ -80,12 +80,18 @@ func die():
 
 
 func _on_obstacle_detector_body_entered(body):
-	if body.has_method("get_energy_drain"):
+	if not is_invunerable and body.has_method("get_energy_drain"):
 		if remaining_power <= 0:
 			die()
 			return
 		lose_power(body.get_energy_drain())
 		hit.emit()
+		is_invunerable = true
+		$InvulnerabilityTimer.start()
 	elif body.has_method("consume"):
 		gain_power(body.consume())
 	
+
+
+func _on_invulnerability_timer_timeout():
+	is_invunerable = false
