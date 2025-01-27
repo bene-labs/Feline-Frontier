@@ -3,6 +3,7 @@ extends RigidBody2D
 
 signal power_changed(new_value: float)
 signal hit
+signal died
 
 @export var rotation_speed := 10.0
 @export var boost_speed = 100.0
@@ -62,7 +63,15 @@ func _input(event: InputEvent) -> void:
 		rotation_velocity = 0.0
 
 
+func die():
+	died.emit()
+	queue_free()
+
+
 func _on_obstacle_detector_body_entered(body):
 	if body.has_method("get_energy_drain"):
+		if remaining_power <= 0:
+			die()
+			return
 		lose_power(body.get_energy_drain())
 		hit.emit()

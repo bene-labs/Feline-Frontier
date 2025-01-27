@@ -152,6 +152,7 @@ offset_bottom = 1181.0
 
 [node name="Obstacles" type="Node2D" parent="."]
 
+[connection signal="died" from="Player" to="LimitedCamera/GameUI" method="_on_player_died"]
 [connection signal="hit" from="Player" to="LimitedCamera" method="_on_player_hit"]
 [connection signal="power_changed" from="Player" to="LimitedCamera/GameUI" method="_on_player_power_changed"]
 [connection signal="timeout" from="AsteroidLauncher/SpawnTimer" to="AsteroidLauncher" method="_on_spawn_timer_timeout"]

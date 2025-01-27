@@ -26,6 +26,17 @@ theme_override_font_sizes/font_size = 20
 text = "Distance: 0000"
 horizontal_alignment = 2
 
+[node name="BestDistanceLabel" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 160.0
+offset_bottom = 54.0
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 20
+text = "Highscore: 0000"
+horizontal_alignment = 2
+
 [node name="EnergyBar" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -74,4 +85,32 @@ text = "100%"
 [node name="OutlineFlashTimer" type="Timer" parent="EnergyBar"]
 wait_time = 0.15
 
+[node name="GameOverScreen" type="ColorRect" parent="."]
+visible = false
+offset_left = 1.0
+offset_right = 1031.0
+offset_bottom = 581.0
+color = Color(0.294118, 0.294118, 0.294118, 0.721569)
+
+[node name="Label" type="Label" parent="GameOverScreen"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 70.0
+offset_right = 1025.0
+offset_bottom = 235.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 120
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="RetryButton" type="Button" parent="GameOverScreen"]
+layout_mode = 0
+offset_left = 334.0
+offset_top = 261.0
+offset_right = 690.0
+offset_bottom = 321.0
+theme_override_font_sizes/font_size = 24
+text = "Play again"
+
 [connection signal="timeout" from="EnergyBar/OutlineFlashTimer" to="EnergyBar" method="_on_outline_flash_timer_timeout"]
+[connection signal="button_down" from="GameOverScreen/RetryButton" to="." method="_on_retry_button_button_down"]
