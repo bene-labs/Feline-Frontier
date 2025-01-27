@@ -53,7 +53,7 @@ offset_left = 69.0
 offset_top = 397.0
 offset_right = 448.0
 offset_bottom = 544.0
-text = "Q/E: Rotate
+text = "Q/E or mouse thumb buttons: Rotate
 Space/Left mouse: Accelerate
 B/Right mouse: Break
 
