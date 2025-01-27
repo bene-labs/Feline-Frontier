@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://pw8w3f2frlig"]
+[gd_scene load_steps=17 format=3 uid="uid://pw8w3f2frlig"]
 
 [ext_resource type="PackedScene" uid="uid://dbhljc0yeen15" path="res://scenes/player.tscn" id="1_71mex"]
 [ext_resource type="Texture2D" uid="uid://os38u78u7gvx" path="res://Background.png" id="1_jlcuv"]
@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cbfv7t64vi410" path="res://images/Spaceship_Colored.png" id="3_udrhp"]
 [ext_resource type="Script" path="res://scripts/game_ui.gd" id="4_ijfx6"]
 [ext_resource type="PackedScene" uid="uid://dm11v5ulponn6" path="res://scenes/enemy_spawner.tscn" id="6_bju4m"]
-[ext_resource type="PackedScene" uid="uid://bshjpe42vqxt4" path="res://scenes/asteroid.tscn" id="8_t68d1"]
+[ext_resource type="Script" path="res://scripts/obstacle_spawner.gd" id="8_up5wp"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7sj44"]
 
@@ -25,6 +25,12 @@ bounce = 2.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kfofu"]
 size = Vector2(612, 380)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ucv68"]
+size = Vector2(101, 1594)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ijjp"]
+size = Vector2(987, 1430)
 
 [node name="Game" type="Node2D"]
 
@@ -46,10 +52,11 @@ rotation_speed = 50.0
 [node name="LimitedCamera" parent="Player" instance=ExtResource("2_jsvua")]
 
 [node name="ReferenceRect" type="ReferenceRect" parent="Player/LimitedCamera"]
-offset_left = -460.0
+offset_left = -246.0
 offset_top = -721.0
-offset_right = 587.0
+offset_right = 4173.0
 offset_bottom = 878.0
+border_width = 3.0
 
 [node name="GameUI" type="CanvasLayer" parent="Player/LimitedCamera"]
 script = ExtResource("4_ijfx6")
@@ -65,7 +72,7 @@ text = "Distance: 0000"
 horizontal_alignment = 2
 
 [node name="LeftWallWall" type="StaticBody2D" parent="."]
-position = Vector2(-125, -3)
+position = Vector2(-186, 2)
 collision_mask = 0
 physics_material_override = SubResource("PhysicsMaterial_1drfh")
 
@@ -99,27 +106,53 @@ position = Vector2(-85.9999, 330)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("3_udrhp")
 
-[node name="EnemySpawner" parent="." instance=ExtResource("6_bju4m")]
+[node name="AsteroidLauncher" parent="." instance=ExtResource("6_bju4m")]
 asteroid_spawn_chance = 0.5
 
-[node name="TopSpawnArea" type="Area2D" parent="EnemySpawner"]
+[node name="TopSpawnArea" type="Area2D" parent="AsteroidLauncher"]
 position = Vector2(-132, -770)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawner/TopSpawnArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AsteroidLauncher/TopSpawnArea"]
 position = Vector2(487, -131)
 shape = SubResource("RectangleShape2D_kfofu")
 
-[node name="BottomSpawnArea" type="Area2D" parent="EnemySpawner"]
+[node name="BottomSpawnArea" type="Area2D" parent="AsteroidLauncher"]
 position = Vector2(-132, 1843)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawner/BottomSpawnArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AsteroidLauncher/BottomSpawnArea"]
 position = Vector2(492, -131)
 shape = SubResource("RectangleShape2D_kfofu")
 
-[node name="SpawnTimer" type="Timer" parent="EnemySpawner"]
+[node name="SpawnTimer" type="Timer" parent="AsteroidLauncher"]
 unique_name_in_owner = true
 
-[node name="Asteroid" parent="." instance=ExtResource("8_t68d1")]
-position = Vector2(574, 296)
+[node name="ObstacleSpawner" type="Node2D" parent="."]
+script = ExtResource("8_up5wp")
 
-[connection signal="timeout" from="EnemySpawner/SpawnTimer" to="EnemySpawner" method="_on_spawn_timer_timeout"]
+[node name="NewAreaTrigger" type="Area2D" parent="ObstacleSpawner"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObstacleSpawner/NewAreaTrigger"]
+position = Vector2(817.5, 383)
+shape = SubResource("RectangleShape2D_ucv68")
+
+[node name="SpawnArea" type="Area2D" parent="ObstacleSpawner"]
+unique_name_in_owner = true
+position = Vector2(876, 11)
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObstacleSpawner/SpawnArea"]
+position = Vector2(514.5, 369)
+shape = SubResource("RectangleShape2D_4ijjp")
+
+[node name="DimensionRef" type="ReferenceRect" parent="ObstacleSpawner"]
+unique_name_in_owner = true
+offset_left = 773.0
+offset_top = -413.0
+offset_right = 1909.0
+offset_bottom = 1181.0
+
+[connection signal="timeout" from="AsteroidLauncher/SpawnTimer" to="AsteroidLauncher" method="_on_spawn_timer_timeout"]
+[connection signal="body_entered" from="ObstacleSpawner/NewAreaTrigger" to="ObstacleSpawner" method="_on_new_area_trigger_body_entered"]
