@@ -25,7 +25,8 @@ func _ready() -> void:
 func lose_power(amount: float):
 	remaining_power = clamp(remaining_power - amount, 0, max_power)
 	if remaining_power == 0:
-		$AnimatedSprite.play("default")
+		#$AnimatedSprite.play("default")
+		$FireSprite.hide()
 		boost_velcotiy = Vector2(0, 0)
 	power_changed.emit(remaining_power / max_power)
 
@@ -51,10 +52,13 @@ func _input(event: InputEvent) -> void:
 		if remaining_power <= 0:
 			power_changed.emit(-1)
 		else:
-			$AnimatedSprite.play("boost")
+			#$AnimatedSprite.play("boost")
+			$FireSprite.show()
+			$FireSprite.play("boost")
 			boost_velcotiy = Vector2(boost_speed, 0).rotated(rotation)
 	elif event.is_action_released("boost"):
-		$AnimatedSprite.play("default")
+		#$AnimatedSprite.play("default")
+		$FireSprite.hide()
 		boost_velcotiy = Vector2(0, 0)
 	elif event.is_action_pressed("break"):
 		if remaining_power <= 0:
