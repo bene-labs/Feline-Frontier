@@ -1,10 +1,13 @@
-[gd_scene load_steps=17 format=3 uid="uid://pw8w3f2frlig"]
+[gd_scene load_steps=20 format=3 uid="uid://pw8w3f2frlig"]
 
 [ext_resource type="PackedScene" uid="uid://dbhljc0yeen15" path="res://scenes/player.tscn" id="1_71mex"]
-[ext_resource type="Texture2D" uid="uid://cip6dy5o7v621" path="res://images/Background.png" id="1_stei8"]
+[ext_resource type="Texture2D" uid="uid://c5vekmpuomkwe" path="res://images/ParallaxGalaxie/Hintergrund.png" id="1_b2f7n"]
+[ext_resource type="Texture2D" uid="uid://cyn6uy5r08dfu" path="res://images/ParallaxGalaxie/SterneKlein.png" id="2_8gkwi"]
 [ext_resource type="PackedScene" uid="uid://bu0finf62w0ke" path="res://scenes/LimitedCamera.tscn" id="2_jsvua"]
 [ext_resource type="Script" path="res://scripts/walls.gd" id="2_lml5f"]
+[ext_resource type="Texture2D" uid="uid://d4nnbsalf2ca3" path="res://images/ParallaxGalaxie/SterneMittel.png" id="3_6udyf"]
 [ext_resource type="Texture2D" uid="uid://cbfv7t64vi410" path="res://images/Spaceship_Colored.png" id="3_udrhp"]
+[ext_resource type="Texture2D" uid="uid://di4l04n1ys5ct" path="res://images/ParallaxGalaxie/SterneGross.png" id="4_2re4g"]
 [ext_resource type="PackedScene" uid="uid://qpdxv4l38x5a" path="res://scenes/game_ui.tscn" id="4_pdfhx"]
 [ext_resource type="PackedScene" uid="uid://dm11v5ulponn6" path="res://scenes/enemy_spawner.tscn" id="6_bju4m"]
 [ext_resource type="Script" path="res://scripts/obstacle_spawner.gd" id="8_up5wp"]
@@ -34,14 +37,43 @@ size = Vector2(1243.5, 1521)
 
 [node name="Game" type="Node2D"]
 
-[node name="Parallax2D" type="Parallax2D" parent="."]
+[node name="Background" type="Node2D" parent="."]
+position = Vector2(-127, -424)
+
+[node name="Back" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0, 0)
 scroll_offset = Vector2(-127, -424)
 repeat_size = Vector2(2280.2, 1612)
 
-[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Background/Back"]
 scale = Vector2(0.65, 0.65)
-texture = ExtResource("1_stei8")
+texture = ExtResource("1_b2f7n")
 centered = false
+
+[node name="Far" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.15, 0.15)
+repeat_size = Vector2(2280.2, 1612)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Far"]
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("2_8gkwi")
+
+[node name="Middle" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.4, 0.4)
+repeat_size = Vector2(2280.2, 1612)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Middle"]
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("3_6udyf")
+
+[node name="Close" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.8, 0.8)
+repeat_size = Vector2(2280.2, 1612)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Close"]
+position = Vector2(1, 0)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("4_2re4g")
 
 [node name="SpaceshipColored" type="Sprite2D" parent="."]
 position = Vector2(133, 300)

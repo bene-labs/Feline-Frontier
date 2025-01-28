@@ -40,20 +40,21 @@ horizontal_alignment = 2
 [node name="EnergyBar" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 57.0
+offset_left = 2.0
+offset_right = 59.0
 offset_bottom = 578.0
 size_flags_horizontal = 0
 script = ExtResource("2_wdaxr")
 
 [node name="Outline" type="Polygon2D" parent="EnergyBar"]
-position = Vector2(-15.88, -4.8)
-scale = Vector2(1.06, 1.02)
-polygon = PackedVector2Array(39, 140, 38, 160, 24, 160, 22, 346, 68, 346, 69, 159, 54, 159, 53, 141)
+position = Vector2(-20, -5)
+scale = Vector2(1.15, 1.02)
+polygon = PackedVector2Array(38, 145, 38, 159, 24, 159, 22, 346, 68, 346, 68, 159, 53, 159, 52.88, 145)
 
 [node name="Background" type="Polygon2D" parent="EnergyBar"]
 position = Vector2(-12.88, 0.199997)
 color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(39, 140, 38, 160, 24, 160, 22, 346, 68, 346, 69, 159, 54, 159, 53, 141)
+polygon = PackedVector2Array(38, 145, 38, 159, 24, 159, 22, 346, 68, 346, 68, 159, 53, 159, 52.88, 145)
 
 [node name="ProgressBar" type="TextureProgressBar" parent="EnergyBar"]
 layout_mode = 0
