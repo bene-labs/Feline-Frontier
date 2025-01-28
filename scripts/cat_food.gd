@@ -8,7 +8,7 @@ const MAX_LIFETIME = 20.0
 
 var life_time := 0.0
 var is_visible := false
-const MIN_SIZE := 0.5
+const MIN_SIZE := 0.65
 const MAX_SIZE := 1.5
 var size := 1.0
 
