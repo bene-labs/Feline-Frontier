@@ -1,8 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://dbhljc0yeen15"]
+[gd_scene load_steps=9 format=3 uid="uid://dbhljc0yeen15"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_dk55j"]
 [ext_resource type="Texture2D" uid="uid://cc7ggghn8p0mb" path="res://images/SpaceCatFire.png" id="2_1bm6t"]
+[ext_resource type="Texture2D" uid="uid://ftmcknveulj8" path="res://images/AnimationFire/Buuuurn-1.png" id="2_xnmfg"]
 [ext_resource type="Texture2D" uid="uid://brdwv8osmicsa" path="res://images/SpaceCatNonFire.png" id="3_kr8fm"]
+[ext_resource type="Texture2D" uid="uid://cn41tdhnc536y" path="res://images/AnimationFire/Buuuurn-2.png" id="3_qp63a"]
+[ext_resource type="Texture2D" uid="uid://kc1675ubw355" path="res://images/AnimationFire/Buuuurn-3.png" id="4_wvhob"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bgpij"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_xnmfg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qp63a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wvhob")
+}],
+"loop": true,
+"name": &"boost",
+"speed": 15.0
+}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xi2fd"]
 animations = [{
@@ -28,10 +48,18 @@ collision_layer = 7
 collision_mask = 3
 script = ExtResource("1_dk55j")
 
+[node name="FireSprite" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(-49, -43)
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_bgpij")
+animation = &"boost"
+
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(10, -9)
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_xi2fd")
+frame_progress = 0.108218
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(31, 9)

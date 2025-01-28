@@ -56,6 +56,7 @@ color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(39, 140, 38, 160, 24, 160, 22, 346, 68, 346, 69, 159, 54, 159, 53, 141)
 
 [node name="ProgressBar" type="TextureProgressBar" parent="EnergyBar"]
+layout_mode = 0
 offset_left = 13.12
 offset_top = 163.2
 offset_right = 77.12
