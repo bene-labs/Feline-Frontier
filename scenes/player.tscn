@@ -1,11 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://dbhljc0yeen15"]
+[gd_scene load_steps=13 format=3 uid="uid://dbhljc0yeen15"]
 
-[ext_resource type="Script" path="res://scenes/player.gd" id="1_dk55j"]
-[ext_resource type="Texture2D" uid="uid://cc7ggghn8p0mb" path="res://images/SpaceCatFire.png" id="2_1bm6t"]
-[ext_resource type="Texture2D" uid="uid://ftmcknveulj8" path="res://images/AnimationFire/Buuuurn-1.png" id="2_xnmfg"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_dk55j"]
+[ext_resource type="Texture2D" uid="uid://d2y3gb058ih2l" path="res://images/AnimationFire/Buuuurn-1.png" id="2_xnmfg"]
 [ext_resource type="Texture2D" uid="uid://brdwv8osmicsa" path="res://images/SpaceCatNonFire.png" id="3_kr8fm"]
-[ext_resource type="Texture2D" uid="uid://cn41tdhnc536y" path="res://images/AnimationFire/Buuuurn-2.png" id="3_qp63a"]
-[ext_resource type="Texture2D" uid="uid://kc1675ubw355" path="res://images/AnimationFire/Buuuurn-3.png" id="4_wvhob"]
+[ext_resource type="Texture2D" uid="uid://ct6adh68jw68q" path="res://images/AnimationFire/Buuuurn-2.png" id="3_qp63a"]
+[ext_resource type="Texture2D" uid="uid://cyu6ioxepet6i" path="res://images/AnimationFire/Buuuurn-3.png" id="4_wvhob"]
+[ext_resource type="Texture2D" uid="uid://cweoh843jbpb2" path="res://images/AnimationCat/Animation-1.png" id="6_iv7yv"]
+[ext_resource type="Texture2D" uid="uid://coja5ver5v0q3" path="res://images/AnimationCat/Animation-2.png" id="7_4g8ea"]
+[ext_resource type="Texture2D" uid="uid://cbyqkwj3n37t8" path="res://images/AnimationCat/Animation-3.png" id="8_0xumn"]
+[ext_resource type="Texture2D" uid="uid://2bh26sjgwwm2" path="res://images/AnimationCat/Animation-4.png" id="9_6ukju"]
+[ext_resource type="Texture2D" uid="uid://0ketu0uhrl0p" path="res://images/AnimationCat/Animation-5.png" id="10_hqxsa"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_bgpij"]
 animations = [{
@@ -28,18 +32,30 @@ animations = [{
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_1bm6t")
-}],
-"loop": true,
-"name": &"boost",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": ExtResource("3_kr8fm")
 }],
 "loop": true,
 "name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_iv7yv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_4g8ea")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_0xumn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_6ukju")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_hqxsa")
+}],
+"loop": true,
+"name": &"start_idle",
 "speed": 5.0
 }]
 
@@ -55,18 +71,41 @@ scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_bgpij")
 animation = &"boost"
 
+[node name="BackwardsFire" type="Node2D" parent="."]
+visible = false
+position = Vector2(38, -10)
+rotation = 0.0173745
+scale = Vector2(0.12, 0.12)
+
+[node name="FireSprite2" type="AnimatedSprite2D" parent="BackwardsFire"]
+position = Vector2(814.147, 327.571)
+rotation = -2.62478
+sprite_frames = SubResource("SpriteFrames_bgpij")
+animation = &"boost"
+autoplay = "boost"
+flip_v = true
+
+[node name="FireSprite3" type="AnimatedSprite2D" parent="BackwardsFire"]
+position = Vector2(690.469, 404.732)
+rotation = -2.77034
+sprite_frames = SubResource("SpriteFrames_bgpij")
+animation = &"boost"
+autoplay = "boost"
+
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(10, -9)
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_xi2fd")
-frame_progress = 0.108218
+frame_progress = 0.682892
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
 position = Vector2(31, 9)
 scale = Vector2(0.525, 0.525)
 polygon = PackedVector2Array(-49.5238, -66.6667, -76.1905, -47.6191, -89.5238, -32.381, -125.714, -30.4762, -160, -36.1905, -194.286, -36.1905, -209.524, -26.6667, -236.191, 3.80952, -253.333, 17.1429, -281.905, 20.9524, -297.143, 22.8571, -310.476, 45.7143, -308.571, 59.0476, -291.429, 72.381, -259.048, 70.4762, -230.476, 55.2381, -207.619, 28.5714, -192.381, -3.80952, -171.429, -15.2381, -139.048, -13.3333, -106.667, -15.2381, -87.6191, -19.0476, -89.5238, -3.80952, -118.095, 5.71429, -154.286, 11.4286, -161.905, 17.1429, -160, 26.6667, -140.952, 34.2857, -104.762, 28.5714, -80, 26.6667, -60.9524, 40, -43.8095, 41.9048, -20.9524, 34.2857, -9.52381, 20.9524, -3.80952, 7.61905, 38.0952, 7.61905, 93.3333, 22.8571, 127.619, 38.0952, 139.048, 40, 140.952, 32.381, 120, 13.3333, 127.619, 9.52381, 156.191, 26.6667, 165.714, 26.6667, 165.714, 17.1429, 152.381, 3.80952, 156.191, -5.71429, 180.952, -28.5714, 194.286, -59.0476, 186.667, -95.2381, 169.524, -120, 146.667, -133.333, 120, -140.952, 91.4286, -139.048, 70.4762, -125.714, 57.1429, -110.476, 45.7143, -99.0476, -11.4286, -106.667, -38.0952, -104.762)
 
 [node name="ObstacleDetector" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 10
 

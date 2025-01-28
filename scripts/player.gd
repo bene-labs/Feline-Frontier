@@ -27,6 +27,7 @@ func lose_power(amount: float):
 	if remaining_power == 0:
 		#$AnimatedSprite.play("default")
 		$FireSprite.hide()
+		$BackwardsFire.hide()
 		boost_velcotiy = Vector2(0, 0)
 	power_changed.emit(remaining_power / max_power)
 
@@ -52,7 +53,7 @@ func _input(event: InputEvent) -> void:
 		if remaining_power <= 0:
 			power_changed.emit(-1)
 		else:
-			#$AnimatedSprite.play("boost")
+			$AnimatedSprite.play("default")
 			$FireSprite.show()
 			$FireSprite.play("boost")
 			boost_velcotiy = Vector2(boost_speed, 0).rotated(rotation)
@@ -64,8 +65,10 @@ func _input(event: InputEvent) -> void:
 		if remaining_power <= 0:
 			power_changed.emit(-1)
 		else:
+			$BackwardsFire.show()
 			boost_velcotiy = Vector2(-boost_speed, 0).rotated(rotation)
 	elif event.is_action_released("break"):
+		$BackwardsFire.hide()
 		boost_velcotiy = Vector2(0, 0)
 	
 	if event.is_action_pressed("roate_right"):

@@ -7,6 +7,7 @@ extends Node2D
 
 var spawn_areas : Array[Area2D]
 var diffculty = 1.0
+var has_started := false
 
 
 func _ready() -> void:
@@ -14,7 +15,6 @@ func _ready() -> void:
 		if not child is Area2D:
 			continue
 		spawn_areas.append(child)
-	_on_game_start()
 
 
 func _process(delta: float) -> void:
@@ -43,3 +43,10 @@ func _on_spawn_timer_timeout() -> void:
 
 func _on_game_start() -> void:
 	%SpawnTimer.start(randf_range(min_spawn_time / diffculty, max_spawn_time / diffculty))
+
+
+func _on_new_area_trigger_body_entered(body):
+	if  has_started:
+		return
+	has_started = true
+	_on_game_start()
