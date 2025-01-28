@@ -22,6 +22,7 @@ static func spawn(difficulty, position):
 
 
 func _ready() -> void:
+	energy_gain *= size
 	$Sprite2D.scale *= Vector2(size, size)
 	$CollisionPolygon2D.scale *= Vector2(size, size)
 	$VisibleOnScreenNotifier2D.scale *= Vector2(size, size)

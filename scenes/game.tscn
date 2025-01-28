@@ -44,15 +44,15 @@ texture = ExtResource("1_stei8")
 centered = false
 
 [node name="SpaceshipColored" type="Sprite2D" parent="."]
-position = Vector2(1, 300)
-scale = Vector2(0.4, 0.4)
+position = Vector2(133, 300)
+scale = Vector2(0.37, 0.37)
 texture = ExtResource("3_udrhp")
 
 [node name="Instructions" type="RichTextLabel" parent="."]
-offset_left = 69.0
-offset_top = 397.0
-offset_right = 499.0
-offset_bottom = 560.0
+offset_left = 159.0
+offset_top = 389.0
+offset_right = 589.0
+offset_bottom = 552.0
 bbcode_enabled = true
 text = "Q/E, A/D or mouse thumb buttons: Rotate
 Space / Left mouse: Accelerate
@@ -64,7 +64,7 @@ and venture past the [b]feline frontier[/b]!
 
 [node name="LimitedCamera" parent="." instance=ExtResource("2_jsvua")]
 position = Vector2(155, 300)
-offset = Vector2(300, 0)
+offset = Vector2(285, 0)
 
 [node name="ReferenceRect" type="ReferenceRect" parent="LimitedCamera"]
 offset_left = -514.0
