@@ -78,8 +78,7 @@ border_width = 3.0
 position = Vector2(155, 300)
 physics_material_override = SubResource("PhysicsMaterial_7sj44")
 gravity_scale = 0.0
-rotation_speed = 60.0
-boost_speed = 150.0
+rotation_speed = 50.0
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 remote_path = NodePath("../../LimitedCamera")
