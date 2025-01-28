@@ -15,7 +15,7 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7sj44"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1drfh"]
-bounce = 0.8
+bounce = 0.33
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_31boq"]
 size = Vector2(112, 1591)
@@ -38,7 +38,6 @@ size = Vector2(1243.5, 1521)
 [node name="Game" type="Node2D"]
 
 [node name="Background" type="Node2D" parent="."]
-position = Vector2(-127, -424)
 
 [node name="Back" type="Parallax2D" parent="Background"]
 scroll_scale = Vector2(0, 0)

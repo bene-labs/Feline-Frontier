@@ -3,8 +3,8 @@ extends RigidBody2D
 
 static var prefab =  preload("res://scenes/asteroid.tscn")
 
-static var min_speed = 40
-static var max_speed = 250
+static var min_speed = 25
+static var max_speed = 200
 
 const MAX_LIFETIME = 10.0
 
@@ -41,7 +41,6 @@ func _ready() -> void:
 func _process(delta):
 	life_time += delta
 	if not is_visible and life_time > MAX_LIFETIME:
-		print("delete by timeout!")
 		queue_free()
 
 
@@ -51,7 +50,6 @@ func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
-	print("!Exit screen delete!")
 
 
 func get_energy_drain():
