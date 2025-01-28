@@ -51,14 +51,15 @@ texture = ExtResource("1_b2f7n")
 centered = false
 
 [node name="Far" type="Parallax2D" parent="Background"]
-scroll_scale = Vector2(0.2, 0.2)
+scroll_scale = Vector2(0.15, 0.15)
 repeat_size = Vector2(2280.2, 1612)
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/Far"]
+scale = Vector2(0.65, 0.65)
 texture = ExtResource("2_8gkwi")
 
 [node name="Middle" type="Parallax2D" parent="Background"]
-scroll_scale = Vector2(0.6, 0.6)
+scroll_scale = Vector2(0.4, 0.4)
 repeat_size = Vector2(2280.2, 1612)
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/Middle"]
@@ -66,9 +67,11 @@ scale = Vector2(0.65, 0.65)
 texture = ExtResource("3_6udyf")
 
 [node name="Close" type="Parallax2D" parent="Background"]
+scroll_scale = Vector2(0.8, 0.8)
 repeat_size = Vector2(2280.2, 1612)
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/Close"]
+position = Vector2(1, 0)
 scale = Vector2(0.65, 0.65)
 texture = ExtResource("4_2re4g")
 
