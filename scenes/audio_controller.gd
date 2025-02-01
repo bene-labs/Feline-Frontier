@@ -3,8 +3,6 @@ extends Node2D
 const MUSIC_FADE_IN_DURATION = 2.5
 const MUSIC_FADE_OUT_DURATION = 2.5
 
-var space_music := preload("res://music/space_theme.mp3")
-var intense_music := preload("res://music/asteroids_incoming.mp3")
 
 #var is_stream_1_playing := false
 #@onready var fade_in_tween :=  get_tree().create_tween()
