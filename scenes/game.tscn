@@ -27,7 +27,7 @@ size = Vector2(949, 124)
 bounce = 0.1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kfofu"]
-size = Vector2(754, 380)
+size = Vector2(1418, 380)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucv68"]
 size = Vector2(101, 1594)
@@ -96,7 +96,6 @@ and venture past the [b]feline frontier[/b]!
 [node name="LimitedCamera" parent="." instance=ExtResource("2_jsvua")]
 position = Vector2(155, 300)
 offset = Vector2(285, 0)
-zoom = Vector2(0.2, 0.2)
 
 [node name="ReferenceRect" type="ReferenceRect" parent="LimitedCamera"]
 offset_left = -514.0
@@ -156,14 +155,14 @@ asteroid_spawn_chance = 0.5
 position = Vector2(-132, -770)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AsteroidLauncher/TopSpawnArea"]
-position = Vector2(558, -131)
+position = Vector2(703, -144)
 shape = SubResource("RectangleShape2D_kfofu")
 
 [node name="BottomSpawnArea" type="Area2D" parent="AsteroidLauncher"]
-position = Vector2(-132, 1843)
+position = Vector2(-418, 1833)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AsteroidLauncher/BottomSpawnArea"]
-position = Vector2(492, -131)
+position = Vector2(989, -134)
 shape = SubResource("RectangleShape2D_kfofu")
 
 [node name="SpawnTimer" type="Timer" parent="AsteroidLauncher"]
@@ -182,7 +181,7 @@ shape = SubResource("RectangleShape2D_ucv68")
 
 [node name="SpawnArea" type="Area2D" parent="ObstacleSpawner"]
 unique_name_in_owner = true
-position = Vector2(1049, 19)
+position = Vector2(1306, 19)
 collision_layer = 0
 collision_mask = 0
 
@@ -194,7 +193,7 @@ shape = SubResource("RectangleShape2D_4ijjp")
 unique_name_in_owner = true
 offset_left = 773.0
 offset_top = -413.0
-offset_right = 2367.0
+offset_right = 2280.0
 offset_bottom = 1181.0
 border_color = Color(0.44888, 0.475444, 0.929675, 1)
 border_width = 3.0
@@ -205,5 +204,6 @@ border_width = 3.0
 [connection signal="hit" from="Player" to="LimitedCamera" method="_on_player_hit"]
 [connection signal="power_changed" from="Player" to="LimitedCamera/GameUI" method="_on_player_power_changed"]
 [connection signal="timeout" from="AsteroidLauncher/SpawnTimer" to="AsteroidLauncher" method="_on_spawn_timer_timeout"]
+[connection signal="intense_mode_started" from="ObstacleSpawner" to="AsteroidLauncher" method="_on_intense_mode_start"]
 [connection signal="body_entered" from="ObstacleSpawner/NewAreaTrigger" to="AsteroidLauncher" method="_on_new_area_trigger_body_entered"]
 [connection signal="body_entered" from="ObstacleSpawner/NewAreaTrigger" to="ObstacleSpawner" method="_on_new_area_trigger_body_entered"]

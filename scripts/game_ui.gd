@@ -30,4 +30,5 @@ func _on_player_died():
 		var file = FileAccess.open("Highscore.sav", FileAccess.WRITE)
 		file.store_float(best_distance)
 		file.close()
+	AudioController.play_chill()
 	$GameOverScreen.show()
