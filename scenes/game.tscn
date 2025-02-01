@@ -27,13 +27,13 @@ size = Vector2(949, 124)
 bounce = 0.1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kfofu"]
-size = Vector2(612, 380)
+size = Vector2(754, 380)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucv68"]
 size = Vector2(101, 1594)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ijjp"]
-size = Vector2(1243.5, 1521)
+size = Vector2(1292.5, 1561)
 
 [node name="Game" type="Node2D"]
 
@@ -48,8 +48,9 @@ scale = Vector2(0.65, 0.65)
 texture = ExtResource("1_b2f7n")
 
 [node name="Far" type="Parallax2D" parent="Background"]
-scroll_scale = Vector2(0.15, 0.15)
-repeat_size = Vector2(2280.2, 1612)
+scroll_scale = Vector2(0.1, 0.1)
+repeat_size = Vector2(2315.28, 1636.8)
+repeat_times = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/Far"]
 scale = Vector2(0.65, 0.65)
@@ -57,18 +58,20 @@ texture = ExtResource("2_8gkwi")
 
 [node name="Middle" type="Parallax2D" parent="Background"]
 scroll_scale = Vector2(0.4, 0.4)
-repeat_size = Vector2(2280.2, 1612)
+repeat_size = Vector2(2315.28, 1636.8)
+repeat_times = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/Middle"]
-scale = Vector2(0.65, 0.65)
+scale = Vector2(0.455, 0.455)
 texture = ExtResource("3_6udyf")
 
 [node name="Close" type="Parallax2D" parent="Background"]
 scroll_scale = Vector2(0.8, 0.8)
-repeat_size = Vector2(2280.2, 1612)
+repeat_size = Vector2(2315.28, 1636.8)
+repeat_times = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/Close"]
-scale = Vector2(0.65, 0.65)
+scale = Vector2(0.33, 0.33)
 texture = ExtResource("4_2re4g")
 
 [node name="SpaceshipColored" type="Sprite2D" parent="."]
@@ -93,6 +96,7 @@ and venture past the [b]feline frontier[/b]!
 [node name="LimitedCamera" parent="." instance=ExtResource("2_jsvua")]
 position = Vector2(155, 300)
 offset = Vector2(285, 0)
+zoom = Vector2(0.2, 0.2)
 
 [node name="ReferenceRect" type="ReferenceRect" parent="LimitedCamera"]
 offset_left = -514.0
@@ -145,14 +149,14 @@ position = Vector2(357.5, -78)
 shape = SubResource("RectangleShape2D_vb2d3")
 
 [node name="AsteroidLauncher" parent="." instance=ExtResource("6_bju4m")]
-visible = false
+position = Vector2(220, -27)
 asteroid_spawn_chance = 0.5
 
 [node name="TopSpawnArea" type="Area2D" parent="AsteroidLauncher"]
 position = Vector2(-132, -770)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AsteroidLauncher/TopSpawnArea"]
-position = Vector2(487, -131)
+position = Vector2(558, -131)
 shape = SubResource("RectangleShape2D_kfofu")
 
 [node name="BottomSpawnArea" type="Area2D" parent="AsteroidLauncher"]
@@ -166,7 +170,6 @@ shape = SubResource("RectangleShape2D_kfofu")
 unique_name_in_owner = true
 
 [node name="ObstacleSpawner" type="Node2D" parent="."]
-visible = false
 script = ExtResource("8_up5wp")
 
 [node name="NewAreaTrigger" type="Area2D" parent="ObstacleSpawner"]
@@ -184,7 +187,7 @@ collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ObstacleSpawner/SpawnArea"]
-position = Vector2(857.25, 362.5)
+position = Vector2(881.75, 362.5)
 shape = SubResource("RectangleShape2D_4ijjp")
 
 [node name="DimensionRef" type="ReferenceRect" parent="ObstacleSpawner"]
@@ -193,6 +196,8 @@ offset_left = 773.0
 offset_top = -413.0
 offset_right = 2367.0
 offset_bottom = 1181.0
+border_color = Color(0.44888, 0.475444, 0.929675, 1)
+border_width = 3.0
 
 [node name="Obstacles" type="Node2D" parent="."]
 

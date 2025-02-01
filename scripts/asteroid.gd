@@ -6,7 +6,7 @@ static var prefab =  preload("res://scenes/asteroid.tscn")
 static var min_speed = 25
 static var max_speed = 200
 
-const MAX_LIFETIME = 10.0
+const MAX_LIFETIME = 20.0
 
 @export var energy_drain := 100
 
@@ -49,6 +49,7 @@ func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	#is_visible = false
 	queue_free()
 
 

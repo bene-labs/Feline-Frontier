@@ -24,13 +24,14 @@ func _process(delta: float) -> void:
 
 
 func spawn_asteroid():
+	return
 	var chosen_area = spawn_areas[randi() % spawn_areas.size()]
 	var col_shape = chosen_area.get_child(0)
 	var centerpos = col_shape.global_position
 	var size = col_shape.shape.extents
 	var position_in_area : Vector2
-	position_in_area.x = (randi() % int(size.x)) - (size.x/2) + centerpos.x
-	position_in_area.y = (randi() % int(size.y)) - (size.y/2) + centerpos.y
+	position_in_area.x = randi() % int(size.x - (size.x/2)) + centerpos.x
+	position_in_area.y = randi() % int(size.y - (size.y/2)) + centerpos.y
 	$"../Obstacles".add_child(Asteroid.spawn(diffculty, position_in_area))
 
 
