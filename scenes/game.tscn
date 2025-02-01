@@ -219,6 +219,5 @@ rotation = 0.58704
 [connection signal="power_changed" from="Player" to="LimitedCamera/GameUI" method="_on_player_power_changed"]
 [connection signal="power_changed" from="Player" to="ObstacleSpawner" method="_on_player_power_changed"]
 [connection signal="timeout" from="AsteroidLauncher/SpawnTimer" to="AsteroidLauncher" method="_on_spawn_timer_timeout"]
-[connection signal="intense_mode_started" from="ObstacleSpawner" to="AsteroidLauncher" method="_on_intense_mode_start"]
 [connection signal="body_entered" from="ObstacleSpawner/NewAreaTrigger" to="AsteroidLauncher" method="_on_new_area_trigger_body_entered"]
 [connection signal="body_entered" from="ObstacleSpawner/NewAreaTrigger" to="ObstacleSpawner" method="_on_new_area_trigger_body_entered"]
