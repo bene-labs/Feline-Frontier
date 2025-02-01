@@ -35,7 +35,6 @@ func _process(delta):
 
 
 func consume() -> float:
-	print("EAT!")
 	queue_free()
 	return energy_gain
 

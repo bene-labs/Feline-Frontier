@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://qpdxv4l38x5a"]
+[gd_scene load_steps=6 format=3 uid="uid://qpdxv4l38x5a"]
 
 [ext_resource type="Script" path="res://scripts/game_ui.gd" id="1_7uqta"]
+[ext_resource type="FontFile" uid="uid://c2dwlq7c5n6nb" path="res://fonts/Space_Mono/SpaceMono-Regular.ttf" id="2_prhcq"]
 [ext_resource type="Script" path="res://scripts/energy_bar.gd" id="2_wdaxr"]
 
 [sub_resource type="Gradient" id="Gradient_772o6"]
@@ -22,6 +23,7 @@ offset_left = 794.0
 offset_top = 20.0
 offset_right = 1015.0
 offset_bottom = 54.0
+theme_override_fonts/font = ExtResource("2_prhcq")
 theme_override_font_sizes/font_size = 20
 text = "Distance: 0000"
 horizontal_alignment = 2
@@ -33,6 +35,7 @@ offset_top = 20.0
 offset_right = 160.0
 offset_bottom = 54.0
 size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("2_prhcq")
 theme_override_font_sizes/font_size = 20
 text = "Highscore: 0000"
 horizontal_alignment = 2
@@ -74,6 +77,7 @@ offset_left = 7.0
 offset_top = 111.0
 offset_right = 58.0
 offset_bottom = 134.0
+theme_override_fonts/font = ExtResource("2_prhcq")
 text = "Power"
 horizontal_alignment = 1
 
@@ -83,6 +87,7 @@ offset_left = 9.0
 offset_top = 350.0
 offset_right = 57.0
 offset_bottom = 373.0
+theme_override_fonts/font = ExtResource("2_prhcq")
 text = "100%"
 horizontal_alignment = 1
 
@@ -94,7 +99,7 @@ visible = false
 offset_left = 1.0
 offset_right = 1031.0
 offset_bottom = 581.0
-color = Color(0.294118, 0.294118, 0.294118, 0.721569)
+color = Color(0.384229, 0.384229, 0.384229, 0.729412)
 
 [node name="Label" type="Label" parent="GameOverScreen"]
 layout_mode = 0
@@ -103,6 +108,9 @@ offset_top = 70.0
 offset_right = 1025.0
 offset_bottom = 235.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("2_prhcq")
 theme_override_font_sizes/font_size = 120
 text = "GAME OVER"
 horizontal_alignment = 1
@@ -113,8 +121,30 @@ offset_left = 334.0
 offset_top = 261.0
 offset_right = 690.0
 offset_bottom = 321.0
+theme_override_fonts/font = ExtResource("2_prhcq")
 theme_override_font_sizes/font_size = 24
 text = "Play again"
 
+[node name="ScoreResultLabel" type="Label" parent="GameOverScreen"]
+visible = false
+layout_mode = 0
+offset_left = 7.0
+offset_top = 388.0
+offset_right = 1026.0
+offset_bottom = 535.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("2_prhcq")
+theme_override_font_sizes/font_size = 38
+text = "Your Score: 10000.23m (Global Top 20%)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GetHighscoresReqest" type="HTTPRequest" parent="."]
+
+[node name="PostHighscoresRequest" type="HTTPRequest" parent="GetHighscoresReqest"]
+
 [connection signal="timeout" from="EnergyBar/OutlineFlashTimer" to="EnergyBar" method="_on_outline_flash_timer_timeout"]
 [connection signal="button_down" from="GameOverScreen/RetryButton" to="." method="_on_retry_button_button_down"]
+[connection signal="request_completed" from="GetHighscoresReqest" to="." method="_on_get_highscores_reqest_request_completed"]
+[connection signal="request_completed" from="GetHighscoresReqest/PostHighscoresRequest" to="." method="_on_post_highscores_request_request_completed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://pw8w3f2frlig"]
+[gd_scene load_steps=25 format=3 uid="uid://pw8w3f2frlig"]
 
 [ext_resource type="PackedScene" uid="uid://dbhljc0yeen15" path="res://scenes/player.tscn" id="1_71mex"]
 [ext_resource type="Texture2D" uid="uid://b8kbvi63sg7ya" path="res://images/ParallaxGalaxie/Hintergrund.png" id="1_b2f7n"]
@@ -10,7 +10,12 @@
 [ext_resource type="Texture2D" uid="uid://bi3soh2x5a3v2" path="res://images/ParallaxGalaxie/SterneGross.png" id="4_2re4g"]
 [ext_resource type="PackedScene" uid="uid://qpdxv4l38x5a" path="res://scenes/game_ui.tscn" id="4_pdfhx"]
 [ext_resource type="PackedScene" uid="uid://dm11v5ulponn6" path="res://scenes/enemy_spawner.tscn" id="6_bju4m"]
+[ext_resource type="FontFile" uid="uid://c2dwlq7c5n6nb" path="res://fonts/Space_Mono/SpaceMono-Regular.ttf" id="6_erv7o"]
+[ext_resource type="FontFile" uid="uid://du2dlqsiktfsq" path="res://fonts/Space_Mono/SpaceMono-Italic.ttf" id="7_wbnie"]
+[ext_resource type="FontFile" uid="uid://dnnfp21im4nrs" path="res://fonts/Space_Mono/SpaceMono-BoldItalic.ttf" id="8_8wrmk"]
 [ext_resource type="Script" path="res://scripts/obstacle_spawner.gd" id="8_up5wp"]
+[ext_resource type="FontFile" uid="uid://b1he8sw3ae1gj" path="res://fonts/Space_Mono/SpaceMono-Bold.ttf" id="9_7irhb"]
+[ext_resource type="PackedScene" uid="uid://b3lh5icsuxcu7" path="res://scenes/cat_food.tscn" id="16_o10g6"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7sj44"]
 
@@ -80,10 +85,15 @@ scale = Vector2(0.37, 0.37)
 texture = ExtResource("3_udrhp")
 
 [node name="Instructions" type="RichTextLabel" parent="."]
-offset_left = 159.0
-offset_top = 389.0
-offset_right = 589.0
-offset_bottom = 552.0
+offset_left = 393.0
+offset_top = 206.0
+offset_right = 835.0
+offset_bottom = 376.0
+theme_override_fonts/normal_font = ExtResource("6_erv7o")
+theme_override_fonts/mono_font = ExtResource("6_erv7o")
+theme_override_fonts/italics_font = ExtResource("7_wbnie")
+theme_override_fonts/bold_italics_font = ExtResource("8_8wrmk")
+theme_override_fonts/bold_font = ExtResource("9_7irhb")
 bbcode_enabled = true
 text = "Q/E, A/D or mouse thumb buttons: Rotate
 Space / Left mouse: Accelerate
@@ -200,9 +210,14 @@ border_width = 3.0
 
 [node name="Obstacles" type="Node2D" parent="."]
 
+[node name="CatFood" parent="." instance=ExtResource("16_o10g6")]
+position = Vector2(864, 289)
+rotation = 0.58704
+
 [connection signal="died" from="Player" to="LimitedCamera/GameUI" method="_on_player_died"]
 [connection signal="hit" from="Player" to="LimitedCamera" method="_on_player_hit"]
 [connection signal="power_changed" from="Player" to="LimitedCamera/GameUI" method="_on_player_power_changed"]
+[connection signal="power_changed" from="Player" to="ObstacleSpawner" method="_on_player_power_changed"]
 [connection signal="timeout" from="AsteroidLauncher/SpawnTimer" to="AsteroidLauncher" method="_on_spawn_timer_timeout"]
 [connection signal="intense_mode_started" from="ObstacleSpawner" to="AsteroidLauncher" method="_on_intense_mode_start"]
 [connection signal="body_entered" from="ObstacleSpawner/NewAreaTrigger" to="AsteroidLauncher" method="_on_new_area_trigger_body_entered"]

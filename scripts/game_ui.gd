@@ -2,7 +2,6 @@ extends CanvasLayer
 
 var best_distance := 0.0
 
-
 func _ready():
 	if FileAccess.file_exists("Highscore.sav"):
 		var file = FileAccess.open("Highscore.sav", FileAccess.READ)
@@ -32,3 +31,37 @@ func _on_player_died():
 		file.close()
 	AudioController.play_chill()
 	$GameOverScreen.show()
+	$GetHighscoresReqest.request("https://firestore.googleapis.com/v1/projects/gunkey-6a1db/databases/(default)/documents/feline_frontier/highscores")
+
+
+func _on_get_highscores_reqest_request_completed(result, response_code, headers, body):
+	if response_code != 200:
+		push_error("Unable to fetch highscores!")
+		return
+	var data = JSON.parse_string(body.get_string_from_ascii())
+	var scores : Array = str_to_var(data["fields"]["entries"]["stringValue"])
+	var score_count = scores.size()
+	var score_placement := 0
+	for score in scores:
+		if Player.traveled_distance > score:
+			scores.insert(score_placement, snapped(Player.traveled_distance, 0.01))
+			break
+		score_placement += 1
+	if score_placement == score_count:
+		scores.append(snapped(Player.traveled_distance, 0.01))
+	score_placement += 1
+	if score_placement <= 10:
+		$GameOverScreen/ScoreResultLabel.text = "Your score: %.2fm (Global #%d)" % [Player.traveled_distance / 10, score_placement]
+	else:
+		$GameOverScreen/ScoreResultLabel.text = "Your score: %.2fm (Global Top %d%%)" % [Player.traveled_distance / 10,
+			 int(float(score_placement) / float(score_count) * 100.0)]
+	$GameOverScreen/ScoreResultLabel.show()
+	data["fields"]["entries"]["stringValue"] = JSON.stringify(scores)
+	$GetHighscoresReqest/PostHighscoresRequest.request("https://firestore.googleapis.com/v1/projects/gunkey-6a1db/databases/(default)/documents/feline_frontier/highscores", \
+		[], HTTPClient.METHOD_PATCH, JSON.stringify(data))
+	
+
+
+func _on_post_highscores_request_request_completed(result, response_code, headers, body):
+	if response_code != 200:
+		push_error("failed to upload higscore!")

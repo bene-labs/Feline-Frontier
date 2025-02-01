@@ -47,9 +47,15 @@ func spawn_cat_food():
 
 
 func _on_new_area_trigger_body_entered(body):
-	print(body.name)
 	for i in range(randi_range(min_obstacles, max_obstacles)):
 		spawn_asteroid()
 	for i in range(int(randf_range(1, 2 + diffculty / 2))):
 		spawn_cat_food()
 	global_position = Vector2(global_position.x + %DimensionRef.size.x, global_position.y)
+
+
+func _on_player_power_changed(new_value):
+	if not started_intense_mode and new_value <= 0:
+		AudioController.play_intense()
+		intense_mode_started.emit()
+		started_intense_mode = true

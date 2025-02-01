@@ -8,7 +8,6 @@ extends Node2D
 var spawn_areas : Array[Area2D]
 var diffculty = 1.0
 var has_started := false
-var intense_mode_reached := false
 
 
 func _ready() -> void:
@@ -20,8 +19,6 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	diffculty = 1.0 + Player.traveled_distance / 10_000
-	
-	
 	for area in spawn_areas:
 		area.global_position.x = Player.traveled_distance
 
