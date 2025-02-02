@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://2bh26sjgwwm2" path="res://images/AnimationCat/Animation-4.png" id="9_6ukju"]
 [ext_resource type="Texture2D" uid="uid://0ketu0uhrl0p" path="res://images/AnimationCat/Animation-5.png" id="10_hqxsa"]
 [ext_resource type="AudioStream" uid="uid://bh0bohcsgbdpa" path="res://sounds/boost/ActivateBoost.mp3" id="11_ecsm2"]
-[ext_resource type="AudioStream" uid="uid://c5xiu7pq6k1v0" path="res://sounds/boost/BoostActive_loop.mp3" id="12_ecvs7"]
+[ext_resource type="AudioStream" uid="uid://b44iv61jliam5" path="res://sounds/boost/BoostActive_loop_v3.mp3" id="12_lmgsh"]
 [ext_resource type="AudioStream" uid="uid://13uokqpq7ngo" path="res://sounds/boost/NoPower.mp3" id="13_qgnyw"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_bgpij"]
@@ -128,7 +128,7 @@ volume_db = -5.0
 [node name="BoostLoopStreamPlayer" type="AudioStreamPlayer2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(1, -34)
-stream = ExtResource("12_ecvs7")
+stream = ExtResource("12_lmgsh")
 volume_db = 5.0
 
 [node name="NoPowerStreamPlayer" type="AudioStreamPlayer2D" parent="."]
@@ -142,4 +142,3 @@ volume_db = 4.0
 
 [connection signal="body_entered" from="ObstacleDetector" to="." method="_on_obstacle_detector_body_entered"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_invulnerability_timer_timeout"]
-[connection signal="finished" from="BoostStartStreamPlayer" to="." method="_on_boost_start_stream_player_finished"]

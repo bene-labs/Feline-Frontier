@@ -15,7 +15,6 @@ func _ready() -> void:
 		if not child is Area2D:
 			continue
 		spawn_areas.append(child)
-	_on_intense_mode_start()
 
 func _process(delta: float) -> void:
 	diffculty = 1.0 + Player.traveled_distance / 10_000

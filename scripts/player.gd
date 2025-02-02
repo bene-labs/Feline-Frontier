@@ -75,6 +75,7 @@ func _input(event: InputEvent) -> void:
 			is_boost = true
 			if not is_break:
 				$BoostStartStreamPlayer.play()
+				%BoostLoopStreamPlayer.play()
 	elif event.is_action_released("boost"):
 		#$AnimatedSprite.play("default")
 		$FireSprite.hide()
@@ -97,6 +98,7 @@ func _input(event: InputEvent) -> void:
 			boost_velcotiy = Vector2(-boost_speed, 0).rotated(rotation)
 			if not is_boost:
 				$BoostStartStreamPlayer.play()
+				%BoostLoopStreamPlayer.play()
 	elif event.is_action_released("break"):
 		$BackwardsFire.hide()
 		is_break = false
@@ -139,7 +141,3 @@ func _on_obstacle_detector_body_entered(body):
 
 func _on_invulnerability_timer_timeout():
 	is_invunerable = false
-
-func _on_boost_start_stream_player_finished() -> void:
-	if is_boost or is_break:
-		%BoostLoopStreamPlayer.play()
