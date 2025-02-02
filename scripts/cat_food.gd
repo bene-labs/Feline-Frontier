@@ -2,6 +2,12 @@ class_name CatFood
 extends RigidBody2D
 
 static var prefab =  preload("res://scenes/cat_food.tscn")
+static var eat_sounds = [
+	preload("res://sounds/cat_eat/Cat_Eating1.mp3"),
+	preload("res://sounds/cat_eat/Cat_Eating2.mp3"),
+	preload("res://sounds/cat_eat/Cat_Eating3.mp3"),
+	preload("res://sounds/cat_eat/Cat_Eating4.mp3")
+	]
 const MAX_LIFETIME = 20.0
 
 @export var energy_gain := 250
@@ -35,6 +41,7 @@ func _process(delta):
 
 
 func consume() -> float:
+	AudioController.play(eat_sounds.pick_random(), 4, global_position)
 	queue_free()
 	return energy_gain
 

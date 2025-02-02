@@ -5,6 +5,12 @@ signal power_changed(new_value: float)
 signal hit
 signal died
 
+static var hit_sounds = [
+	preload("res://sounds/cat_hit/Cat_GettingHit1.mp3"),
+	preload("res://sounds/cat_hit/Cat_GettingHit2.mp3"),
+	preload("res://sounds/cat_hit/Cat_GettingHit3.mp3"),
+]
+
 @export var rotation_speed := 10.0
 @export var boost_speed = 100.0
 @export var max_power := 1000.0
@@ -17,6 +23,8 @@ var rotation_velocity := 0.0
 static var traveled_distance := 0.0
 var start_postion : Vector2
 var is_invunerable := false
+var is_boost := false
+var is_break := false
 
 func _ready() -> void:
 	start_postion = global_position
@@ -29,6 +37,8 @@ func lose_power(amount: float):
 		$FireSprite.hide()
 		$BackwardsFire.hide()
 		boost_velcotiy = Vector2(0, 0)
+		%BoostLoopStreamPlayer.stop()
+		$BoostStartStreamPlayer.stop()
 	power_changed.emit(remaining_power / max_power)
 
 
@@ -51,25 +61,50 @@ func _physics_process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("boost"):
 		if remaining_power <= 0:
+			$NoPowerStreamPlayer.pitch_scale = randf_range(0.65, 1.35)
+			$NoPowerStreamPlayer.play()
 			power_changed.emit(-1)
+			is_boost = false
+			$BoostStartStreamPlayer.stop()
+			%BoostLoopStreamPlayer.stop()
 		else:
 			$AnimatedSprite.play("default")
 			$FireSprite.show()
 			$FireSprite.play("boost")
 			boost_velcotiy = Vector2(boost_speed, 0).rotated(rotation)
+			is_boost = true
+			if not is_break:
+				$BoostStartStreamPlayer.play()
 	elif event.is_action_released("boost"):
 		#$AnimatedSprite.play("default")
 		$FireSprite.hide()
-		boost_velcotiy = Vector2(0, 0)
+		is_boost = false
+		boost_velcotiy = Vector2(-boost_speed, 0).rotated(rotation) \
+			if is_break else Vector2(0, 0)
+		if not is_break:
+			$BoostStartStreamPlayer.stop()
+			%BoostLoopStreamPlayer.stop()
 	elif event.is_action_pressed("break"):
 		if remaining_power <= 0:
+			$NoPowerStreamPlayer.pitch_scale = randf_range(0.65, 1.35)
 			power_changed.emit(-1)
+			is_break = false
+			$BoostStartStreamPlayer.stop()
+			%BoostLoopStreamPlayer.stop()
 		else:
+			is_break = true
 			$BackwardsFire.show()
 			boost_velcotiy = Vector2(-boost_speed, 0).rotated(rotation)
+			if not is_boost:
+				$BoostStartStreamPlayer.play()
 	elif event.is_action_released("break"):
 		$BackwardsFire.hide()
-		boost_velcotiy = Vector2(0, 0)
+		is_break = false
+		boost_velcotiy = Vector2(boost_speed, 0).rotated(rotation) \
+			if is_boost else Vector2(0, 0)
+		if not is_boost:
+			$BoostStartStreamPlayer.stop()
+			%BoostLoopStreamPlayer.stop()
 	
 	if event.is_action_pressed("roate_right"):
 		rotation_velocity = rotation_speed
@@ -88,6 +123,8 @@ func die():
 
 func _on_obstacle_detector_body_entered(body):
 	if not is_invunerable and body.has_method("get_energy_drain"):
+		$HitSoundPlayer.stream = hit_sounds.pick_random()
+		$HitSoundPlayer.play()
 		if remaining_power <= 0:
 			die()
 			return
@@ -102,3 +139,7 @@ func _on_obstacle_detector_body_entered(body):
 
 func _on_invulnerability_timer_timeout():
 	is_invunerable = false
+
+func _on_boost_start_stream_player_finished() -> void:
+	if is_boost or is_break:
+		%BoostLoopStreamPlayer.play()

@@ -15,6 +15,16 @@ enum MusicId {
 	INTENSE
 }
 
+static func play(audio: AudioStream, volume := 1.0, position:= Vector2.ZERO) -> void:
+	var audio_player := AudioStreamPlayer2D.new()
+	audio_player.volume_db = linear_to_db(volume)
+	audio_player.position = position
+	audio_player.stream = audio
+	Engine.get_main_loop().root.add_child(audio_player)
+	audio_player.play()
+	await audio_player.finished
+	audio_player.queue_free()
+
 
 func play_chill():
 	$AnimationPlayer.play("play_chill")

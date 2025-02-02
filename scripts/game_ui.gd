@@ -57,7 +57,6 @@ func _on_get_highscores_reqest_request_completed(result, response_code, headers,
 			 int(float(score_placement) / float(score_count) * 100.0)]
 	$GameOverScreen/ScoreResultLabel.show()
 	data["fields"]["entries"]["stringValue"] = JSON.stringify(scores)
-	print(JSON.stringify(data))
 	$GetHighscoresReqest/PostHighscoresRequest.request("https://firestore.googleapis.com/v1/projects/gunkey-6a1db/databases/(default)/documents/feline_frontier/highscores", \
 		[], HTTPClient.METHOD_PATCH, JSON.stringify(data))
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dbhljc0yeen15"]
+[gd_scene load_steps=16 format=3 uid="uid://dbhljc0yeen15"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_dk55j"]
 [ext_resource type="Texture2D" uid="uid://d2y3gb058ih2l" path="res://images/AnimationFire/Buuuurn-1.png" id="2_xnmfg"]
@@ -10,6 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://cbyqkwj3n37t8" path="res://images/AnimationCat/Animation-3.png" id="8_0xumn"]
 [ext_resource type="Texture2D" uid="uid://2bh26sjgwwm2" path="res://images/AnimationCat/Animation-4.png" id="9_6ukju"]
 [ext_resource type="Texture2D" uid="uid://0ketu0uhrl0p" path="res://images/AnimationCat/Animation-5.png" id="10_hqxsa"]
+[ext_resource type="AudioStream" uid="uid://bh0bohcsgbdpa" path="res://sounds/boost/ActivateBoost.mp3" id="11_ecsm2"]
+[ext_resource type="AudioStream" uid="uid://c5xiu7pq6k1v0" path="res://sounds/boost/BoostActive_loop.mp3" id="12_ecvs7"]
+[ext_resource type="AudioStream" uid="uid://13uokqpq7ngo" path="res://sounds/boost/NoPower.mp3" id="13_qgnyw"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_bgpij"]
 animations = [{
@@ -117,5 +120,26 @@ polygon = PackedVector2Array(-49.5238, -66.6667, -76.1905, -47.6191, -89.5238, -
 [node name="InvulnerabilityTimer" type="Timer" parent="."]
 wait_time = 0.2
 
+[node name="BoostStartStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(1, -34)
+stream = ExtResource("11_ecsm2")
+volume_db = -5.0
+
+[node name="BoostLoopStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(1, -34)
+stream = ExtResource("12_ecvs7")
+volume_db = 5.0
+
+[node name="NoPowerStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(1, -34)
+stream = ExtResource("13_qgnyw")
+volume_db = 5.0
+
+[node name="HitSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(94, -21)
+volume_db = 4.0
+
 [connection signal="body_entered" from="ObstacleDetector" to="." method="_on_obstacle_detector_body_entered"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_invulnerability_timer_timeout"]
+[connection signal="finished" from="BoostStartStreamPlayer" to="." method="_on_boost_start_stream_player_finished"]

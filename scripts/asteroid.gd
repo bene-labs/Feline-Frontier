@@ -55,3 +55,9 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 
 func get_energy_drain():
 	return energy_drain
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if is_visible and body is Asteroid:
+		$HitStreamPlayer.pitch_scale = randf_range(0.6, 1.4)
+		$HitStreamPlayer.play()

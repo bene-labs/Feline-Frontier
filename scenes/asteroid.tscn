@@ -1,13 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://bshjpe42vqxt4"]
+[gd_scene load_steps=7 format=3 uid="uid://bshjpe42vqxt4"]
 
 [ext_resource type="Script" path="res://scripts/asteroid.gd" id="1_pebcr"]
 [ext_resource type="Texture2D" uid="uid://xfq2tdk7d77v" path="res://images/Asteroid.png" id="2_u623o"]
+[ext_resource type="AudioStream" uid="uid://wyvv5x00yk3t" path="res://sounds/Asteroid_Hitting_each_Other.mp3" id="3_fr4wi"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hl7vp"]
 bounce = 0.6
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0o2sn"]
 radius = 50.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ql5wk"]
+radius = 50.2
 
 [node name="Asteroid" type="RigidBody2D"]
 collision_layer = 10
@@ -27,5 +31,17 @@ shape = SubResource("CircleShape2D_0o2sn")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 scale = Vector2(15, 15)
 
+[node name="AsteroidHitArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AsteroidHitArea"]
+shape = SubResource("CircleShape2D_ql5wk")
+
+[node name="HitStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_fr4wi")
+volume_db = -5.0
+
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="body_entered" from="AsteroidHitArea" to="." method="_on_area_2d_body_entered"]

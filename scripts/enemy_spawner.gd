@@ -1,8 +1,8 @@
 extends Node2D
 
-@export var asteroid_spawn_chance = 0.25
-@export var min_spawn_time := 0.25
-@export var max_spawn_time := 1
+@export var asteroid_spawn_chance = 0.15
+@export var min_spawn_time := 0.5
+@export var max_spawn_time := 1.5
 
 
 var spawn_areas : Array[Area2D]
@@ -15,7 +15,7 @@ func _ready() -> void:
 		if not child is Area2D:
 			continue
 		spawn_areas.append(child)
-
+	_on_intense_mode_start()
 
 func _process(delta: float) -> void:
 	diffculty = 1.0 + Player.traveled_distance / 10_000
