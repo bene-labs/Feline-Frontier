@@ -96,6 +96,7 @@ horizontal_alignment = 1
 wait_time = 0.15
 
 [node name="GameOverScreen" type="ColorRect" parent="."]
+visible = false
 offset_left = -13.0
 offset_top = 2.0
 offset_right = 1017.0
