@@ -141,8 +141,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="GetHighscoresReqest" type="HTTPRequest" parent="."]
+accept_gzip = false
 
 [node name="PostHighscoresRequest" type="HTTPRequest" parent="GetHighscoresReqest"]
+accept_gzip = false
 
 [connection signal="timeout" from="EnergyBar/OutlineFlashTimer" to="EnergyBar" method="_on_outline_flash_timer_timeout"]
 [connection signal="button_down" from="GameOverScreen/RetryButton" to="." method="_on_retry_button_button_down"]

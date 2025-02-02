@@ -87,8 +87,8 @@ texture = ExtResource("3_udrhp")
 [node name="Instructions" type="RichTextLabel" parent="."]
 offset_left = 393.0
 offset_top = 206.0
-offset_right = 835.0
-offset_bottom = 376.0
+offset_right = 827.0
+offset_bottom = 513.0
 theme_override_fonts/normal_font = ExtResource("6_erv7o")
 theme_override_fonts/mono_font = ExtResource("6_erv7o")
 theme_override_fonts/italics_font = ExtResource("7_wbnie")
@@ -179,6 +179,7 @@ shape = SubResource("RectangleShape2D_kfofu")
 unique_name_in_owner = true
 
 [node name="ObstacleSpawner" type="Node2D" parent="."]
+rotation = 0.0226953
 script = ExtResource("8_up5wp")
 
 [node name="NewAreaTrigger" type="Area2D" parent="ObstacleSpawner"]

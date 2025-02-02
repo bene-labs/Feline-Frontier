@@ -38,7 +38,7 @@ func _on_get_highscores_reqest_request_completed(result, response_code, headers,
 	if response_code != 200:
 		push_error("Unable to fetch highscores!")
 		return
-	var data = JSON.parse_string(body.get_string_from_ascii())
+	var data = JSON.parse_string(body.get_string_from_utf8())
 	var scores : Array = str_to_var(data["fields"]["entries"]["stringValue"])
 	var score_count = scores.size()
 	var score_placement := 0
@@ -57,6 +57,7 @@ func _on_get_highscores_reqest_request_completed(result, response_code, headers,
 			 int(float(score_placement) / float(score_count) * 100.0)]
 	$GameOverScreen/ScoreResultLabel.show()
 	data["fields"]["entries"]["stringValue"] = JSON.stringify(scores)
+	print(JSON.stringify(data))
 	$GetHighscoresReqest/PostHighscoresRequest.request("https://firestore.googleapis.com/v1/projects/gunkey-6a1db/databases/(default)/documents/feline_frontier/highscores", \
 		[], HTTPClient.METHOD_PATCH, JSON.stringify(data))
 	
