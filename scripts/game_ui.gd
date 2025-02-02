@@ -65,3 +65,7 @@ func _on_get_highscores_reqest_request_completed(result, response_code, headers,
 func _on_post_highscores_request_request_completed(result, response_code, headers, body):
 	if response_code != 200:
 		push_error("failed to upload higscore!")
+
+
+func _on_get_top_players_request_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
+	pass # Replace with function body.

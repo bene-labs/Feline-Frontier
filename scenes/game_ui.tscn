@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://qpdxv4l38x5a"]
+[gd_scene load_steps=7 format=3 uid="uid://qpdxv4l38x5a"]
 
 [ext_resource type="Script" path="res://scripts/game_ui.gd" id="1_7uqta"]
 [ext_resource type="FontFile" uid="uid://c2dwlq7c5n6nb" path="res://fonts/Space_Mono/SpaceMono-Regular.ttf" id="2_prhcq"]
 [ext_resource type="Script" path="res://scripts/energy_bar.gd" id="2_wdaxr"]
+[ext_resource type="FontFile" uid="uid://b1he8sw3ae1gj" path="res://fonts/Space_Mono/SpaceMono-Bold.ttf" id="4_t8kn6"]
 
 [sub_resource type="Gradient" id="Gradient_772o6"]
 offsets = PackedFloat32Array(0, 0.541738, 1)
@@ -95,18 +96,18 @@ horizontal_alignment = 1
 wait_time = 0.15
 
 [node name="GameOverScreen" type="ColorRect" parent="."]
-visible = false
-offset_left = 1.0
-offset_right = 1031.0
-offset_bottom = 581.0
+offset_left = -13.0
+offset_top = 2.0
+offset_right = 1017.0
+offset_bottom = 583.0
 color = Color(0.384229, 0.384229, 0.384229, 0.729412)
 
 [node name="Label" type="Label" parent="GameOverScreen"]
 layout_mode = 0
 offset_left = 2.0
-offset_top = 70.0
+offset_top = 55.0
 offset_right = 1025.0
-offset_bottom = 235.0
+offset_bottom = 234.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 7
@@ -118,20 +119,19 @@ horizontal_alignment = 1
 [node name="RetryButton" type="Button" parent="GameOverScreen"]
 layout_mode = 0
 offset_left = 334.0
-offset_top = 261.0
+offset_top = 276.0
 offset_right = 690.0
-offset_bottom = 321.0
+offset_bottom = 336.0
 theme_override_fonts/font = ExtResource("2_prhcq")
 theme_override_font_sizes/font_size = 24
 text = "Play again"
 
 [node name="ScoreResultLabel" type="Label" parent="GameOverScreen"]
-visible = false
 layout_mode = 0
-offset_left = 7.0
-offset_top = 388.0
-offset_right = 1026.0
-offset_bottom = 535.0
+offset_left = 3.0
+offset_top = 371.0
+offset_right = 1028.0
+offset_bottom = 518.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
 theme_override_fonts/font = ExtResource("2_prhcq")
@@ -140,13 +140,74 @@ text = "Your Score: 10000.23m (Global Top 20%)"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="BestPlayersLabel" type="Label" parent="GameOverScreen"]
+visible = false
+layout_mode = 0
+offset_left = 7.0
+offset_top = 433.0
+offset_right = 1026.0
+offset_bottom = 580.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("2_prhcq")
+theme_override_font_sizes/font_size = 32
+text = "Top Players: 1.??? - 10.83km 2.??? - 10.43km
+ 3.??? - 10.42km 4.??? - 10.41km 5.??? 10.48km"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="EnterInitials" type="Control" parent="GameOverScreen"]
+visible = false
+anchors_preset = 0
+
+[node name="Title" type="Label" parent="GameOverScreen/EnterInitials"]
+offset_left = 9.0
+offset_top = 423.0
+offset_right = 1034.0
+offset_bottom = 493.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("2_prhcq")
+theme_override_font_sizes/font_size = 32
+text = "Enter your initials"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="LineEdit" type="LineEdit" parent="GameOverScreen/EnterInitials"]
+layout_mode = 0
+offset_left = 412.0
+offset_top = 484.0
+offset_right = 623.0
+offset_bottom = 528.0
+theme_override_fonts/font = ExtResource("4_t8kn6")
+theme_override_font_sizes/font_size = 24
+alignment = 1
+max_length = 3
+
+[node name="Button" type="Button" parent="GameOverScreen/EnterInitials"]
+layout_mode = 0
+offset_left = 451.0
+offset_top = 536.0
+offset_right = 586.0
+offset_bottom = 568.0
+disabled = true
+text = "confirm"
+
 [node name="GetHighscoresReqest" type="HTTPRequest" parent="."]
 accept_gzip = false
 
 [node name="PostHighscoresRequest" type="HTTPRequest" parent="GetHighscoresReqest"]
 accept_gzip = false
 
+[node name="GetTopPlayersRequest" type="HTTPRequest" parent="."]
+accept_gzip = false
+
+[node name="PatchTopPlayersRequest" type="HTTPRequest" parent="GetTopPlayersRequest"]
+
 [connection signal="timeout" from="EnergyBar/OutlineFlashTimer" to="EnergyBar" method="_on_outline_flash_timer_timeout"]
 [connection signal="button_down" from="GameOverScreen/RetryButton" to="." method="_on_retry_button_button_down"]
 [connection signal="request_completed" from="GetHighscoresReqest" to="." method="_on_get_highscores_reqest_request_completed"]
 [connection signal="request_completed" from="GetHighscoresReqest/PostHighscoresRequest" to="." method="_on_post_highscores_request_request_completed"]
+[connection signal="request_completed" from="GetTopPlayersRequest" to="." method="_on_get_top_players_request_request_completed"]

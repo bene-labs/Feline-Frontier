@@ -85,9 +85,9 @@ scale = Vector2(0.37, 0.37)
 texture = ExtResource("3_udrhp")
 
 [node name="Instructions" type="RichTextLabel" parent="."]
-offset_left = 393.0
+offset_left = 371.0
 offset_top = 206.0
-offset_right = 827.0
+offset_right = 861.0
 offset_bottom = 513.0
 theme_override_fonts/normal_font = ExtResource("6_erv7o")
 theme_override_fonts/mono_font = ExtResource("6_erv7o")
@@ -95,11 +95,12 @@ theme_override_fonts/italics_font = ExtResource("7_wbnie")
 theme_override_fonts/bold_italics_font = ExtResource("8_8wrmk")
 theme_override_fonts/bold_font = ExtResource("9_7irhb")
 bbcode_enabled = true
-text = "Q/E, A/D or mouse thumb buttons: Rotate
-Space / Left mouse: Accelerate
-C, B, or Right mouse: Break
+text = "Q/E, A/D, up/down or mouse thumb buttons: Rotate
+Space, Right Arrow or Left mouse: Accelerate
+C, B, Left Arrow or Right mouse: Break
 
-Dodge asteroid and collect cat food to conserve power 
+Dodge asteroid and collect cat food 
+to conserve power 
 and venture past the [b]feline frontier[/b]!
 "
 
@@ -212,7 +213,7 @@ border_width = 3.0
 [node name="Obstacles" type="Node2D" parent="."]
 
 [node name="CatFood" parent="." instance=ExtResource("16_o10g6")]
-position = Vector2(864, 289)
+position = Vector2(879, 290)
 rotation = 0.58704
 
 [connection signal="died" from="Player" to="LimitedCamera/GameUI" method="_on_player_died"]
