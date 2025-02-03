@@ -97,18 +97,19 @@ wait_time = 0.15
 
 [node name="GameOverScreen" type="ColorRect" parent="."]
 visible = false
-offset_left = -13.0
-offset_top = 2.0
-offset_right = 1017.0
-offset_bottom = 583.0
+offset_left = 1.0
+offset_right = 1031.0
+offset_bottom = 580.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 color = Color(0.384229, 0.384229, 0.384229, 0.729412)
 
 [node name="Label" type="Label" parent="GameOverScreen"]
 layout_mode = 0
 offset_left = 2.0
-offset_top = 55.0
+offset_top = 25.0
 offset_right = 1025.0
-offset_bottom = 234.0
+offset_bottom = 204.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 7
@@ -120,19 +121,20 @@ horizontal_alignment = 1
 [node name="RetryButton" type="Button" parent="GameOverScreen"]
 layout_mode = 0
 offset_left = 334.0
-offset_top = 276.0
+offset_top = 229.0
 offset_right = 690.0
-offset_bottom = 336.0
+offset_bottom = 289.0
 theme_override_fonts/font = ExtResource("2_prhcq")
 theme_override_font_sizes/font_size = 24
 text = "Play again"
 
 [node name="ScoreResultLabel" type="Label" parent="GameOverScreen"]
+visible = false
 layout_mode = 0
 offset_left = 3.0
-offset_top = 371.0
+offset_top = 317.0
 offset_right = 1028.0
-offset_bottom = 518.0
+offset_bottom = 464.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
 theme_override_fonts/font = ExtResource("2_prhcq")
@@ -142,18 +144,19 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="BestPlayersLabel" type="Label" parent="GameOverScreen"]
+unique_name_in_owner = true
 visible = false
 layout_mode = 0
 offset_left = 7.0
-offset_top = 433.0
+offset_top = 430.0
 offset_right = 1026.0
-offset_bottom = 580.0
+offset_bottom = 577.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
 theme_override_fonts/font = ExtResource("2_prhcq")
 theme_override_font_sizes/font_size = 32
-text = "Top Players: 1.??? - 10.83km 2.??? - 10.43km
- 3.??? - 10.42km 4.??? - 10.41km 5.??? 10.48km"
+text = "Top Players: 1.%s - %.2fkm 2.%s - %.2fkm
+ 3.%s - %.2fkm 4.%s - %.2fkm 5.%s - %.2fkm"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
@@ -163,6 +166,7 @@ visible = false
 anchors_preset = 0
 
 [node name="Title" type="Label" parent="GameOverScreen/EnterInitials"]
+layout_mode = 0
 offset_left = 9.0
 offset_top = 423.0
 offset_right = 1034.0
@@ -187,7 +191,8 @@ theme_override_font_sizes/font_size = 24
 alignment = 1
 max_length = 3
 
-[node name="Button" type="Button" parent="GameOverScreen/EnterInitials"]
+[node name="InitialConfirmButton" type="Button" parent="GameOverScreen/EnterInitials"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 451.0
 offset_top = 536.0
@@ -206,9 +211,12 @@ accept_gzip = false
 accept_gzip = false
 
 [node name="PatchTopPlayersRequest" type="HTTPRequest" parent="GetTopPlayersRequest"]
+accept_gzip = false
 
 [connection signal="timeout" from="EnergyBar/OutlineFlashTimer" to="EnergyBar" method="_on_outline_flash_timer_timeout"]
 [connection signal="button_down" from="GameOverScreen/RetryButton" to="." method="_on_retry_button_button_down"]
+[connection signal="text_changed" from="GameOverScreen/EnterInitials/LineEdit" to="." method="_on_line_edit_text_changed"]
 [connection signal="request_completed" from="GetHighscoresReqest" to="." method="_on_get_highscores_reqest_request_completed"]
 [connection signal="request_completed" from="GetHighscoresReqest/PostHighscoresRequest" to="." method="_on_post_highscores_request_request_completed"]
 [connection signal="request_completed" from="GetTopPlayersRequest" to="." method="_on_get_top_players_request_request_completed"]
+[connection signal="request_completed" from="GetTopPlayersRequest/PatchTopPlayersRequest" to="." method="_on_patch_top_players_request_request_completed"]
